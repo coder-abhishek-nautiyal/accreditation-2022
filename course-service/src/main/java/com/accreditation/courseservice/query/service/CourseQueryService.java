@@ -8,7 +8,7 @@ public interface CourseQueryService {
 
     public List<Course> getAllCourses();
 
-    public Course getCourseByTechnology(String courseTechnology);
+    public List<Course> getCourseByTechnology(String courseTechnology);
 
     public List<Course> getCourseByTechnologyBetweenDurationSpecified(String courseTechnology,int courseDurationFrom,int courseDurationTo);
 

@@ -29,12 +29,13 @@ public class CourseQueryServiceImpl implements CourseQueryService {
     }
 
     @Override
-    public Course getCourseByTechnology(String courseTechnology) {
+    public  List<Course> getCourseByTechnology(String courseTechnology) {
 
-        Optional<Course> course = courseCommandRepository.findByCourseTechnology(courseTechnology);
+        /*We can get multiple courses based on Course Technology*/
+        List<Course> courseList = courseCommandRepository.findByCourseTechnology(courseTechnology);
 
-        if (course.isPresent()) {
-            return course.get();
+        if (courseList != null && !courseList.isEmpty()) {
+            return courseList;
         }
 
         return null;
@@ -44,9 +45,9 @@ public class CourseQueryServiceImpl implements CourseQueryService {
     public List<Course> getCourseByTechnologyBetweenDurationSpecified(String courseTechnology, int courseDurationFrom, int courseDurationTo) {
 
         /*Below logic to confirm courseTechnology exist*/
-        Course existingCourse=getCourseByTechnology(courseTechnology);
+        List<Course> existingCourseList =getCourseByTechnology(courseTechnology);
 
-        if(existingCourse==null){
+        if(existingCourseList==null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionConstant.COURSE_TECHNOLOGY_DOES_NOT_EXIST);
         }
 

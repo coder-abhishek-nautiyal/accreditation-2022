@@ -33,10 +33,10 @@ public class CourseQueryController {
     @GetMapping("/info/{courseTechnology}")
     public ResponseEntity<?> getCourseByTechnology(@PathVariable("courseTechnology") String courseTechnology) {
 
-        Course courseExist = courseQueryService.getCourseByTechnology(courseTechnology);
+        List<Course> courseList = courseQueryService.getCourseByTechnology(courseTechnology);
 
-        if (courseExist != null) {
-            return new ResponseEntity<Course>(courseExist, HttpStatus.OK);
+        if (courseList != null && !courseList.isEmpty()) {
+            return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
         }
         return new ResponseEntity<String>(ExceptionConstant.COURSE_TECHNOLOGY_DOES_NOT_EXIST, HttpStatus.NOT_FOUND);
     }

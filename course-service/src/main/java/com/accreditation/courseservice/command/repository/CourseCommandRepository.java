@@ -21,7 +21,7 @@ public interface CourseCommandRepository extends JpaRepository<Course, Integer> 
 
     public Optional<Course> findByCourseName(String courseName);
 
-    Optional<Course> findByCourseTechnology(String courseTechnology);
+    List<Course> findByCourseTechnology(String courseTechnology);
 
     @Query(value = "select c from Course c where c.courseTechnology = ?1 and c.courseDuration between ?2 and ?3")
     List<Course> findByCourseTechnologyBetweenCourseDuration(String courseTechnology, int courseDurationFrom, int courseDurationTo);
