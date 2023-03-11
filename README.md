@@ -17,3 +17,6 @@ http://localhost:9998/api/v/1.0/lms/courses/getall
 Below is the end point for course service swagger ui - 
 http://localhost:9998/swagger-ui/
 
+Below is to get course service config properties from config service
+http://localhost:9997/course-service/default
+
