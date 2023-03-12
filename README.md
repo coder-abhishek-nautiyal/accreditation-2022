@@ -22,3 +22,18 @@ http://localhost:9997/course-service/default
 Below is the end point to call Course Service Config from Api Gateway-
 http://localhost:9999/course-service/default
 
+Below is the end point to validate userTokenTest with Bearer Token of User Role -
+http://localhost:9996/api/v/1.0/lms/company/userTokenTest
+
+Below is the end point to validate userTokenTest with Bearer Token of User Role -
+http://localhost:9996/api/v/1.0/lms/company/adminTokenTest
+
+Below is to get user service config properties from config service -
+http://localhost:9997/user-service/default
+
+Below is the end point to call User Service Config from Api Gateway-
+http://localhost:9999/user-service/default
+
+Below is the end point for user service swagger ui -
+http://localhost:9996/swagger-ui/
+
