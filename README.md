@@ -13,10 +13,12 @@ http://localhost:9999/api/v/1.0/lms/courses/getall
 Below is the end point for course service without api gateway - 
 http://localhost:9998/api/v/1.0/lms/courses/getall
 
-
 Below is the end point for course service swagger ui - 
 http://localhost:9998/swagger-ui/
 
-Below is to get course service config properties from config service
+Below is to get course service config properties from config service - 
 http://localhost:9997/course-service/default
+
+Below is the end point to call Course Service Config from Api Gateway-
+http://localhost:9999/course-service/default
 

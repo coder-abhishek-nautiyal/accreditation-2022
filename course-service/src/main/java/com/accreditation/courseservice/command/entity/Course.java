@@ -21,6 +21,7 @@ public class Course {
 
     private String courseName;
 
+    @Column(length = 1000)
     private String courseDescription;
 
     private int courseDuration;
