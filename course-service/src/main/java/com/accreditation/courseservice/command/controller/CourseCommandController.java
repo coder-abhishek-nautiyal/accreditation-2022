@@ -5,7 +5,8 @@ import com.accreditation.courseservice.command.dto.CourseUpdateRequestDto;
 import com.accreditation.courseservice.command.entity.Course;
 import com.accreditation.courseservice.command.service.CourseCommandService;
 import com.accreditation.courseservice.exception.CourseServiceException;
-import com.accreditation.courseservice.util.ExceptionConstant;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class CourseCommandController {
     @Autowired
     private CourseCommandService courseService;
 
+    @ApiOperation(value = "", authorizations = {@Authorization(value = "jwtToken")})
     @PostMapping("/add")
     public ResponseEntity<?> addCourse(@Valid @RequestBody CourseCreateRequestDto courseRequestDto) throws CourseServiceException {
 
@@ -39,6 +41,7 @@ public class CourseCommandController {
 
     }
 
+    @ApiOperation(value = "", authorizations = {@Authorization(value = "jwtToken")})
     @DeleteMapping("/delete/{courseName}")
     public ResponseEntity<?> deleteCourseByName(@PathVariable("courseName") String courseName) {
         if (courseService.deleteCourseByName(courseName)) {
@@ -47,6 +50,7 @@ public class CourseCommandController {
         return new ResponseEntity<String>("Course is not deleted from table", HttpStatus.NOT_FOUND);
     }
 
+    @ApiOperation(value = "", authorizations = {@Authorization(value = "jwtToken")})
     @DeleteMapping("/deleteByCourseId/{courseId}")
     public ResponseEntity<?> deleteCourseById(@PathVariable("courseId") int courseId) {
         if (courseService.deleteCourseById(courseId)) {
@@ -55,6 +59,7 @@ public class CourseCommandController {
         return new ResponseEntity<String>("Course is not deleted from table", HttpStatus.NOT_FOUND);
     }
 
+    @ApiOperation(value = "", authorizations = {@Authorization(value = "jwtToken")})
     @PutMapping("/update")
     public ResponseEntity<?> updateCourse(@Valid @RequestBody CourseUpdateRequestDto courseUpdateRequestDto) {
 

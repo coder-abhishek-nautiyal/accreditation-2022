@@ -1,6 +1,6 @@
-package com.accreditation.userservice.dto;
+package com.accreditation.courseservice.command.dto;
 
-import com.accreditation.userservice.util.ExceptionConstant;
+import com.accreditation.courseservice.util.ExceptionConstant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,10 +15,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDetailDto {
-
-    @NotBlank(message = ExceptionConstant.USER_NAME_IS_MANDATORY)
-    private String username;
+public class UserDto {
 
     /*should contain @ and .com imp */
     @NotBlank(message = ExceptionConstant.EMAIL_ID_IS_MANDATORY)
@@ -29,8 +26,5 @@ public class UserDetailDto {
     @Pattern(regexp = "[a-zA-Z0-9]+$",message = ExceptionConstant.PASSWORD_SHOULD_BE_ALPHANUMERIC) // alphanumeric
     @Size(min=8,message = ExceptionConstant.PASSWORD_MINIMUM_LENGTH_ERROR)
     private String password;
-
-
-    private String role;
 
 }

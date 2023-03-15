@@ -1,11 +1,11 @@
 package com.accreditation.userservice.security.config;
 
+import com.accreditation.userservice.repository.UserRepository;
 import com.accreditation.userservice.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,6 +28,10 @@ public class SpringSecurityConfiguration {
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
+    @Autowired
+    private UserRepository userRepository;
+
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
@@ -44,7 +48,7 @@ public class SpringSecurityConfiguration {
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/api/v/1.0/lms/company/adminTokenTest").hasRole("ADMIN")
                 .antMatchers("/api/v/1.0/lms/company/userTokenTest").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/v/1.0/lms/company/generateToken", "/api/v/1.0/lms/company/register","/swagger-ui/**","/v2/api-docs","/swagger-resources/**").permitAll().anyRequest().authenticated()
+                .antMatchers("/api/v/1.0/lms/company/login", "/api/v/1.0/lms/company/register","/swagger-ui/**","/v2/api-docs","/swagger-resources/**").permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).
                 and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

@@ -1,13 +1,10 @@
-package com.accreditation.userservice.security.config;
+package com.accreditation.courseservice.security.config;
 
-import com.accreditation.userservice.entity.UserDetail;
-import com.accreditation.userservice.repository.UserRepository;
+
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -24,35 +21,6 @@ public class JwtUtil {
     @Value("${jwt.refreshExpirationDateInMs}")
     private int refreshExpirationDateInMs;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public String generateToken(User user) {
-        Map<String, Object> claims = new HashMap<>();
-
-        Optional<UserDetail> userData = userRepository.findUserByUsername(user.getUsername());
-
-        claims.put("role", userData.get().getRole());
-        claims.put("email", userData.get().getEmail());
-        claims.put("username", userData.get().getUsername());
-
-        return doGenerateToken(claims, userData.get().getUsername());
-    }
-
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
-
-    }
-
-    public String doGenerateRefreshToken(Map<String, Object> claims, String subject) {
-
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + refreshExpirationDateInMs))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
-
-    }
 
     public boolean validateToken(String authToken) {
         try {

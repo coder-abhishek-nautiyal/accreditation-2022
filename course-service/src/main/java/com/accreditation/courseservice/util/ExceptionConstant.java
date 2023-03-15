@@ -13,6 +13,10 @@ public class ExceptionConstant {
     public static final String COURSE_LAUNCH_URL_IS_MANDATORY = "Course Launch URL is mandatory";
     public static final String COURSE_DURATION_SHOULD_BE_NUMERIC_GREATER_THAN_ZERO = "Course Duration should be numeric and greater than 0";
     public static final String COURSE_ID_SHOULD_BE_NUMERIC_GREATER_THAN_ZERO = "Course Id should be numeric and greater than 0";
+    public static final String EMAIL_ID_IS_MANDATORY = "Email id is mandatory";
+    public static final String PASSWORD_IS_MANDATORY = "Password is mandatory";
+    public static final String PASSWORD_SHOULD_BE_ALPHANUMERIC = "Password should be alphanumeric";
+    public static final String PASSWORD_MINIMUM_LENGTH_ERROR = "Password should be at least 8 characters";
 
 
 

@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<SimpleGrantedAuthority> roles = null;
 
 
-        Optional<UserDetail> userDetails = userRepository.findByUsername(username);
+        Optional<UserDetail> userDetails = userRepository.findUserByUsername(username);
         if (userDetails.isPresent()) {
             roles = Arrays.asList(new SimpleGrantedAuthority(userDetails.get().getRole()));
             return new User(userDetails.get().getUsername(), userDetails.get().getPassword(), roles);

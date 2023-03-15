@@ -7,6 +7,15 @@ http://localhost:9999/
 Below is the end point for eureka via api gateway - 
 http://localhost:9999/eureka/web
 
+Below is the end point for login to course system via gateway-
+http://localhost:9999/api/v/1.0/lms/courses/login
+
+For registration of user , login and check authentication from user service below are the api -
+http://localhost:9999/api/v/1.0/lms/company/login
+http://localhost:9999/api/v/1.0/lms/company/register
+http://localhost:9999/api/v/1.0/lms/company/refreshtoken
+http://localhost:9999/api/v/1.0/lms/company/adminTokenTest
+
 Below is the end point for course service via api gateway - 
 http://localhost:9999/api/v/1.0/lms/courses/getall
 

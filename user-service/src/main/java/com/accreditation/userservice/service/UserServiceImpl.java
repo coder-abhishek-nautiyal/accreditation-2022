@@ -19,13 +19,35 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetail save(UserDetail userDetail) {
 
-        Optional<UserDetail> userDetails = userRepository.findByUsername(userDetail.getUsername());
+        Optional<UserDetail> userDetailsByEmail = userRepository.findUserByEmail(userDetail.getEmail());
 
-        if (userDetails.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, ExceptionConstant.USER_NAME_ALREADY_PRESENT);
-        } else {
-            return userRepository.save(userDetail);
+        if (userDetailsByEmail.isPresent()) {
+
+            throw new ResponseStatusException(HttpStatus.CONFLICT, ExceptionConstant.EMAIL_ID_ALREADY_EXIST);
         }
+
+        Optional<UserDetail> userDetailsByUsername = userRepository.findUserByUsername(userDetail.getUsername());
+
+        if (userDetailsByUsername.isPresent()) {
+
+            throw new ResponseStatusException(HttpStatus.CONFLICT, ExceptionConstant.USER_NAME_ALREADY_EXIST);
+        }
+
+        return userRepository.save(userDetail);
+
+
+    }
+
+    @Override
+    public UserDetail findUserByEmail(String emailId) {
+
+        Optional<UserDetail> userDetailsByEmail = userRepository.findUserByEmail(emailId);
+
+        if (!userDetailsByEmail.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, ExceptionConstant.EMAIL_ID_NOT_EXIST);
+        }
+
+        return userDetailsByEmail.get();
 
     }
 }
