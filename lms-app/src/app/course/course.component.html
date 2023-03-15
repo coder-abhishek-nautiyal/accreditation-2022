@@ -1,0 +1,80 @@
+<h1>Course Details Form</h1>
+<div id="mainDiv">
+<form #courseForm="ngForm" (ngSubmit)="addCourseDetails()">
+
+    Course Name :
+    <input name="courseName" class="form-control" type="text" [(ngModel)]="course.courseName" required>
+
+    <br>
+
+    Course Description :
+    <input name="courseDescription" class="form-control" type="text" [(ngModel)]="course.courseDescription" required>
+
+    <br>
+    Course Duration :
+    <input name="courseDuration" class="form-control" type="number" [(ngModel)]="course.courseDuration" required>
+
+    <br>
+    Course Technology :
+    <input name="courseTechnology" class="form-control" type="text" [(ngModel)]="course.courseTechnology" required>
+
+    <br>
+    Course Launch URL :
+    <input name="courseLaunchURL" class="form-control" type="text" [(ngModel)]="course.courseLaunchURL" required>
+
+    <br>
+
+<button type="submit">Add Course</button>
+
+
+</form>
+<hr>
+
+<div id="secondDiv">
+    <button (click)="viewCourseList()">View Courses</button>
+</div>
+
+<div id="thirdDiv">
+<div *ngFor="let course of courses">
+{{course.courseId}}==>{{course.courseName}}==>{{course.courseDescription}}==>{{course.courseDuration}}==>{{course.courseTechnology}}==>{{course.courseLaunchURL}} || 
+<button (click)="deleteCourseByCourseName(course.courseName)">Delete</button> <br>
+</div>
+</div>
+
+<h2>Update Course</h2>
+<form #updateCourse="ngForm" (ngSubmit)="updateCourseDetails()">
+
+    Course Id :
+    <input name="courseId" class="form-control" type="number" [(ngModel)]="course.courseId" required>
+    <br>
+
+    Course Name :
+    <input name="courseName" class="form-control" type="text" [(ngModel)]="course.courseName" required>
+
+    <br>
+
+    Course Description :
+    <input name="courseDescription" class="form-control" type="text" [(ngModel)]="course.courseDescription" required>
+
+    <br>
+    Course Duration :
+    <input name="courseDuration" class="form-control" type="number" [(ngModel)]="course.courseDuration" required>
+
+    <br>
+    Course Technology :
+    <input name="courseTechnology" class="form-control" type="text" [(ngModel)]="course.courseTechnology" required>
+
+    <br>
+    Course Launch URL :
+    <input name="courseLaunchURL" class="form-control" type="text" [(ngModel)]="course.courseLaunchURL" required>
+
+    <br>
+
+<button type="submit">Update Course</button>
+
+
+</form>
+
+
+
+</div>
