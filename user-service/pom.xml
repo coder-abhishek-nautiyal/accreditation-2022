@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.accreditation</groupId>
-	<artifactId>userDetail-service</artifactId>
+	<artifactId>user-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>userDetail-service</name>
+	<name>user-service</name>
 	<description>This is User Service</description>
 	<properties>
 		<java.version>11</java.version>
