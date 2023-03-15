@@ -20,6 +20,16 @@ public class SpringSecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        /*Uncomment below logic if we need to bypass spring security.*/
+        /*
+                http.csrf().disable()
+                .anonymous().and()
+                .authorizeRequests()
+                .antMatchers("/api/v/1.0/lms/courses/**", "/swagger-ui/**", "/v2/api-docs", "/swagger-resources/**").permitAll()
+                .anyRequest().authenticated()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        */
+
         http.csrf().disable()
                 .anonymous().and()
                 .authorizeRequests()

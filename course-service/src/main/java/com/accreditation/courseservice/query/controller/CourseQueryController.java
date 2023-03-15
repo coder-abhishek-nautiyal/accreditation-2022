@@ -1,5 +1,6 @@
 package com.accreditation.courseservice.query.controller;
 
+import com.accreditation.courseservice.command.dto.StringResponse;
 import com.accreditation.courseservice.command.entity.Course;
 import com.accreditation.courseservice.util.ExceptionConstant;
 import com.accreditation.courseservice.query.service.CourseQueryService;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v/1.0/lms/courses")
+@CrossOrigin("*")
 public class CourseQueryController {
 
     @Autowired
@@ -29,7 +31,7 @@ public class CourseQueryController {
             return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
         }
 
-        return new ResponseEntity<String>("Course List is empty ", HttpStatus.OK);
+        return new ResponseEntity<StringResponse>(new StringResponse("Course List is empty "), HttpStatus.OK);
 
     }
 
@@ -42,7 +44,7 @@ public class CourseQueryController {
         if (courseList != null && !courseList.isEmpty()) {
             return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
         }
-        return new ResponseEntity<String>(ExceptionConstant.COURSE_TECHNOLOGY_DOES_NOT_EXIST, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<StringResponse>(new StringResponse(ExceptionConstant.COURSE_TECHNOLOGY_DOES_NOT_EXIST), HttpStatus.NOT_FOUND);
     }
 
     @ApiOperation(value = "", authorizations = {@Authorization(value = "jwtToken")})
@@ -58,11 +60,11 @@ public class CourseQueryController {
                 return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
             }
 
-            return new ResponseEntity<String>("Course List is empty ", HttpStatus.OK);
+            return new ResponseEntity<StringResponse>(new StringResponse("Course List is empty "), HttpStatus.OK);
 
         }
 
-        return new ResponseEntity<String>(ExceptionConstant.COURSE_DURATION_FROM_SHOULD_BE_LESS_THAN_TO, HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<StringResponse>(new StringResponse(ExceptionConstant.COURSE_DURATION_FROM_SHOULD_BE_LESS_THAN_TO), HttpStatus.NOT_ACCEPTABLE);
     }
 
 }

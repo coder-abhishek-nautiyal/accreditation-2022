@@ -1,0 +1,50 @@
+server:
+  port: 9999
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+            allow-credentials: true
+      routes:
+        - id: service-registry
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/web
+          filters:
+            - SetPath=/
+        - id: service-registry-static
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/**
+        - id: course-service
+          uri: lb://course-service
+          predicates:
+            - Path=/api/v/1.0/lms/courses/**
+        - id: config-service-user-service
+          uri: lb://config-service
+          predicates:
+            - Path=/user-service/**
+        - id: config-service-course-service
+          uri: lb://config-service
+          predicates:
+            - Path=/course-service/**
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v/1.0/lms/company/**
+
+

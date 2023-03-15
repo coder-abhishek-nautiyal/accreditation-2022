@@ -2,6 +2,7 @@ package com.accreditation.userservice.controller;
 
 import com.accreditation.userservice.dto.AuthenticationRequest;
 import com.accreditation.userservice.dto.AuthenticationResponse;
+import com.accreditation.userservice.dto.StringResponse;
 import com.accreditation.userservice.dto.UserDetailDto;
 import com.accreditation.userservice.entity.UserDetail;
 import com.accreditation.userservice.security.config.JwtUtil;
@@ -26,6 +27,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v/1.0/lms/company")
+@CrossOrigin("*")
 public class UserRegistrationController {
 
     @Autowired
@@ -53,7 +55,7 @@ public class UserRegistrationController {
                 .build();
 
         if (userService.save(userDetail) != null) {
-            return new ResponseEntity<String>("User is successfully registered !!", HttpStatus.CREATED);
+            return new ResponseEntity<StringResponse>(new StringResponse("User is successfully registered !!"), HttpStatus.CREATED);
         }
 
         return new ResponseEntity<>(HttpStatus.CONFLICT);

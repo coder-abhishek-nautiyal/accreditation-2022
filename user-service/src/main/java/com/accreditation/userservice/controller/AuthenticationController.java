@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v/1.0/lms/company")
+@CrossOrigin("*")
 public class AuthenticationController {
 
 

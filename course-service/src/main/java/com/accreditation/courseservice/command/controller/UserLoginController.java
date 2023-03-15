@@ -1,19 +1,18 @@
 package com.accreditation.courseservice.command.controller;
 
+import com.accreditation.courseservice.command.dto.StringResponse;
 import com.accreditation.courseservice.command.dto.UserDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v/1.0/lms/courses")
+@CrossOrigin("*")
 public class UserLoginController {
 
     @Value("${loginBaseUrl}")
@@ -29,7 +28,7 @@ public class UserLoginController {
             response = restTemplate.exchange(loginBaseUrl, HttpMethod.POST, getHeaders(userDto), new ParameterizedTypeReference<Map<String, String>>() {
             });
         } catch (Exception e) {
-            return new ResponseEntity<String>("Login was not successful , Please enter valid credentials", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<StringResponse>(new StringResponse("Login was not successful , Please enter valid credentials"), HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<Map<String, String>>(response.getBody(), HttpStatus.OK);
     }
