@@ -1,6 +1,8 @@
 export const constants={
 
-    courseServiceBaseURL:"http://localhost:9999"
+    roles:['ROLE_USER','ROLE_ADMIN']
+
+
 
 
 }

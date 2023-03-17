@@ -4,6 +4,7 @@ import {apiEndpoints} from '../../config/api-endpoints';
 import {constants} from '../../config/constants';
 import { Course } from 'src/app/models/course';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -14,34 +15,34 @@ export class CourseService {
   constructor(public restTemplate: RestTemplateService) { }
 
   addCourse(course : Course):Observable<Course>{
-  return this.restTemplate.postForEntity(constants.courseServiceBaseURL+apiEndpoints.ADD_COURSE,course);
+  return this.restTemplate.postForEntity(environment.baseUrl+apiEndpoints.ADD_COURSE,course);
   }
 
 
   getAllCourses():Observable<Array<Course>>{
-    return this.restTemplate.getForEntity(constants.courseServiceBaseURL+apiEndpoints.GET_ALL_COURSE);
+    return this.restTemplate.getForEntity(environment.baseUrl+apiEndpoints.GET_ALL_COURSE);
   }
 
     
   deleteCourseByCourseName(courseName : string):Observable<Course>{
-    return this.restTemplate.deleteForEntity(constants.courseServiceBaseURL+apiEndpoints.DELETE_COURSE_BY_COURSE_NAME+`/${courseName}`);
+    return this.restTemplate.deleteForEntity(environment.baseUrl+apiEndpoints.DELETE_COURSE_BY_COURSE_NAME+`/${courseName}`);
   }
 
       
   deleteCourseById(courseId:number):Observable<Course>{
-    return this.restTemplate.deleteForEntity(constants.courseServiceBaseURL+apiEndpoints.DELETE_COURSE_BY_ID+`/${courseId}`);
+    return this.restTemplate.deleteForEntity(environment.baseUrl+apiEndpoints.DELETE_COURSE_BY_ID+`/${courseId}`);
   }
   
   updateCourse(course : Course):Observable<Course>{
-    return this.restTemplate.putForEntity(constants.courseServiceBaseURL+apiEndpoints.UPDATE_COURSE,course);
+    return this.restTemplate.putForEntity(environment.baseUrl+apiEndpoints.UPDATE_COURSE,course);
   }
 
   getCoursesByCourseTechnology(courseTechnology : string):Observable<Course>{
-    return this.restTemplate.getForEntity(constants.courseServiceBaseURL+apiEndpoints.GET_COURSES_BY_COURSE_TECHNOLOGY+`/${courseTechnology}`);
+    return this.restTemplate.getForEntity(environment.baseUrl+apiEndpoints.GET_COURSES_BY_COURSE_TECHNOLOGY+`/${courseTechnology}`);
   }
 
   getCoursesByCourseTechnologyBasedOnDuration(courseTechnology : string,courseDurationFrom:number,courseDurationTo:number):Observable<Course>{
-    return this.restTemplate.getForEntity(constants.courseServiceBaseURL+apiEndpoints.GET_COURSES_BY_COURSE_TECHNOLOGY_DURATION_BASED+`/${courseTechnology}/${courseDurationFrom}/${courseDurationTo}`);
+    return this.restTemplate.getForEntity(environment.baseUrl+apiEndpoints.GET_COURSES_BY_COURSE_TECHNOLOGY_DURATION_BASED+`/${courseTechnology}/${courseDurationFrom}/${courseDurationTo}`);
   }
 
 

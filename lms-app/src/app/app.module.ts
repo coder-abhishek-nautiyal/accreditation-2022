@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -7,23 +7,43 @@ import { CourseComponent } from './course/course.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { FooterComponent } from './navigation/footer/footer.component';
 
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AddCourseComponent } from './course/add-course/add-course.component';
+import { UpdateCourseComponent } from './course/update-course/update-course.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthInitializerProviderFactory } from './initializers/auth-initializer.service';
+import { AuthService } from './services/auth-service/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     CourseComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent,
+    AddCourseComponent,
+    UpdateCourseComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
+    {
+      provide: APP_INITIALIZER,
+      useFactory: AuthInitializerProviderFactory,
+      deps: [AuthService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
