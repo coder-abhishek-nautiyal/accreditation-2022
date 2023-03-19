@@ -16,6 +16,9 @@ import { UpdateCourseComponent } from './course/update-course/update-course.comp
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthInitializerProviderFactory } from './initializers/auth-initializer.service';
 import { AuthService } from './services/auth-service/auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { AuthService } from './services/auth-service/auth.service';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+     MaterialModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},

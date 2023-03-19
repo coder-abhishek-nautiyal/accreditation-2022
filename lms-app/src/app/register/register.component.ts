@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Form, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { RegisterUser } from '../models/register-user';
 import { RegisterService } from '../services/register-service/register.service';
 
@@ -12,8 +12,11 @@ import { RegisterService } from '../services/register-service/register.service';
 export class RegisterComponent implements OnInit {
 
   userRegisterForm: FormGroup;
+  @ViewChild('ngForm') ngForm: NgForm;
   isUserRegistrationSuccess = false;
   errMessage = ''
+  hide :boolean = true;
+
 
   constructor(    private fb: FormBuilder,
     private http: HttpClient,
@@ -23,8 +26,8 @@ export class RegisterComponent implements OnInit {
 
     this.userRegisterForm = this.fb.group({
       username:['',Validators.required],
-      email:['',Validators.required],
-      password:['',Validators.required]
+      email:['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.com$")]],
+      password:['',[Validators.required,Validators.minLength(8),Validators.pattern("^[a-zA-Z0-9]+$")]],
     })
 
   }
@@ -33,8 +36,11 @@ export class RegisterComponent implements OnInit {
     const formValue = this.userRegisterForm.value
     this.registerService.registerUser(new RegisterUser(formValue.username,formValue.email,formValue.password)).subscribe(data=> {
       this.isUserRegistrationSuccess = true
+      this.errMessage='';
+      this.userRegisterForm.reset('');
+      this.ngForm.resetForm();
     },err =>{
-        this.errMessage= err.error
+        this.errMessage= err.error && err.error.message;
     })
   }
 

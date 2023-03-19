@@ -53,18 +53,19 @@ export class AuthService {
   }
 
   setRoleAccess(userRole:string){
-
     if(userRole==='ROLE_USER'){
       this.isUserRole=true;
+      this.isAdminRole=false;
     }
 
     if(userRole==='ROLE_ADMIN'){
       this.isAdminRole=true;
+      this.isUserRole=false;
     }
 
     if(constants.roles.includes(userRole)){
       this.isUserLoggedIn=true // set attribute true if role is matching with preferred role
-      this.loginSuccess.emit(true); //emtting event to header component
+      this.loginSuccess.emit(true); //emitting event to header component
     }
 
   }

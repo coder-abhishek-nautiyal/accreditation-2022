@@ -14,7 +14,9 @@ export class LoginComponent implements OnInit {
 
 
   userLoginForm : FormGroup
-  message = '';
+  errMessage = ''
+
+  hide :boolean = true;
 
 
   constructor(private fb: FormBuilder,
@@ -24,20 +26,18 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.userLoginForm = this.fb.group({
-      email:['',Validators.required],
-      password:['',Validators.required],
-    })
+      email:['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.com$")]],
+      password:['',[Validators.required,Validators.minLength(8),Validators.pattern("^[a-zA-Z0-9]+$")]],
+    }) 
   }
 
   login(){
     const formValue = this.userLoginForm.value
     this.loginService.validateLogin(new LoginUser(formValue.email,formValue.password)).subscribe(data=> {
-     console.log(data);
      this.authService.extractUserDetails(data.token);
       this.router.navigate(['/'])
     },err=>{
-      this.message='Wrong username or password!!'
-      console.log(err);
+      this.errMessage=err.error && err.error.response;
     })
   }
 

@@ -1,17 +1,37 @@
-<form class="form-signin" [formGroup]='userLoginForm' (submit)="login()">
-    <h1 class="h3 mb-3 fw-normal">Login</h1>
-  
-    <div class="form-floating">
-      <input class="form-control" id="floatingInput" formControlName="email">
-      <label for="floatingInput">Email</label>
-    </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" formControlName="password">
-      <label for="floatingPassword">Password</label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="!userLoginForm.valid">Login</button>
-    <br><br>
-    <p *ngIf="message" class="alert alert-danger alert-dismissible fade show">{{message}}</p>
+
+
+    <mat-card class="login-div" >
+      <mat-card-title>Login</mat-card-title>
+      <mat-card-content>
+      <form [formGroup]="userLoginForm" (submit)="login()">
+
+        <mat-form-field>
+          <input matInput type="email" placeholder="Enter your email" formControlName="email" required>
+          <mat-icon matSuffix>mail_outline</mat-icon>
+          <mat-error *ngIf="userLoginForm.controls['email'].errors?.['required']">Email is required</mat-error>
+          <mat-error *ngIf="userLoginForm.controls['email'].errors?.['pattern']">Please enter valid email with @ and .com</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password" formControlName="password"  required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-error *ngIf="userLoginForm.controls['password'].errors?.['required']">Password is required</mat-error>
+          <mat-error *ngIf="userLoginForm.controls['password'].errors?.['minlength']">
+                  Please enter more than 8 character
+              </mat-error>
+         <mat-error *ngIf="userLoginForm.controls['password'].errors?.['pattern']">Password should be alphanumeric</mat-error>    
+        </mat-form-field>
+      
+        <div>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!userLoginForm.valid">Login</button>
+      </div>
+
   </form>
+  </mat-card-content>
+  <div>
+    <mat-divider *ngIf="errMessage" inset ></mat-divider>
+    <div *ngIf="errMessage" class="login-submission-error">{{errMessage}}</div>
+  </div>
   
   
+  </mat-card> 
