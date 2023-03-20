@@ -22,7 +22,7 @@
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       <mat-error *ngIf="userRegisterForm.controls['password'].errors?.['required']">Password is required</mat-error>
       <mat-error *ngIf="userRegisterForm.controls['password'].errors?.['minlength']">
-              Please enter more than 8 character
+        Please enter at least 8 characters
           </mat-error>
      <mat-error *ngIf="userRegisterForm.controls['password'].errors?.['pattern']">Password should be alphanumeric</mat-error>    
     </mat-form-field>

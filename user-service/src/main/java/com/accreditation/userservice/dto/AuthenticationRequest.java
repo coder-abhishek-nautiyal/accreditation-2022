@@ -19,7 +19,7 @@ public class AuthenticationRequest {
 
     /*should contain @ and .com imp */
     @NotBlank(message = ExceptionConstant.EMAIL_ID_IS_MANDATORY)
-    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}", flags = Pattern.Flag.CASE_INSENSITIVE) // re-verify-regex
+    @Email(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.com$", flags = Pattern.Flag.CASE_INSENSITIVE,message = ExceptionConstant.EMAIL_ID_IS_NOT_VALID ) // re-verify-regex
     private String email;
 
     @NotBlank(message = ExceptionConstant.PASSWORD_IS_MANDATORY)

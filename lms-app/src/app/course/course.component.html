@@ -50,7 +50,7 @@
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
        
-        <a mat-button [routerLink]="['/update-course/', course.courseId]"><mat-icon matSuffix>edit</mat-icon></a>
+        <a mat-button [routerLink]="['/update-course/', element.courseId]"><mat-icon matSuffix>edit</mat-icon></a>
         <button  mat-button type="button" (click)="deleteCourseByCourseName(element.courseName)"><mat-icon matSuffix>delete</mat-icon></button>
 
       </td>
@@ -60,54 +60,14 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+      No Course Found.
+    </td>
+  </tr>
+
+
 </table>
 
-<!-- 
-<div *ngIf="isUserLoggedIn" class="container-xl">
-    <div class="table-responsive">
-      <div class="table-wrapper">
-        <div class="table-title">
-          <div class="row">
-            <div class="col-sm-6">
-              <h4><b>Learning Management System</b></h4>
-            </div>
-            <div *ngIf="isAdminRole" class="col-sm-6">
-              <button class="btn btn-success" (click)="addCourse()">
-                <i class='fas fa-plus-circle'></i><span> ADD</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <table class="table table-striped table-hover table-bordered table-content">
-          <thead>
-            <tr class="center-align">
-              <th>Course Id</th>
-              <th>Course Name</th>
-              <th>Course Description</th>
-              <th>Course Duration</th>
-              <th>Course Technology</th>
-              <th>Course Launch URL</th>
-              <th *ngIf="isAdminRole">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let course of courses" class="center-align">
-              <td>{{ course.courseId }}</td>
-              <td>{{ course.courseName }}</td>
-              <td>{{ course.courseDescription }}</td>
-              <td>{{ course.courseDuration }}</td>
-              <td>{{ course.courseTechnology }}</td>
-              <td>{{ course.courseLaunchURL }}</td>
-              <td *ngIf="isAdminRole">
-                <a href="#" [routerLink]="['/update-course/', course.courseId]" class="btn"><i class="fa fa-edit edit"></i></a>
-                <button type="button" (click)="deleteCourseByCourseName(course.courseName)" class="btn"><i class='fas fa-trash-alt delete'></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td *ngIf="courses.length == 0" colspan="6">No Course Found</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div> -->

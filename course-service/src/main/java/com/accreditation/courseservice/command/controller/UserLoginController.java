@@ -8,6 +8,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
@@ -19,7 +20,7 @@ public class UserLoginController {
     private String loginBaseUrl;
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody UserDto userDto) {
+    public ResponseEntity<?> login(@Valid @RequestBody UserDto userDto) {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map<String, String>> response = null;

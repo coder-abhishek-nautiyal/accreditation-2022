@@ -1,16 +1,16 @@
 .course-table {
     width: 100%;
   }
-  
+
   .course-button-container {
     padding-bottom: 16px;
   }
- 
+
   .course-button{
     margin-left: 10px;
     margin-top: 10px;
   }
-  
+
   .course-button + .course-button {
     margin-left: 8px;
   }
@@ -20,7 +20,7 @@
 
 }
 .mat-column-courseName {
-    width: 500px;
+    width: 350px;
 
 }
 .mat-column-courseDescription {
@@ -28,7 +28,7 @@
 
 }
 .mat-column-courseDuration {
-    width: 80;
+    width: 80px;
 
 }
 .mat-column-courseTechnology {
@@ -38,4 +38,13 @@
 .mat-column-courseLaunchURL {
    max-width: 100px;
 
+}
+
+th,td {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.mat-header-cell, .mat-cell{
+  text-align: center !important;
 }

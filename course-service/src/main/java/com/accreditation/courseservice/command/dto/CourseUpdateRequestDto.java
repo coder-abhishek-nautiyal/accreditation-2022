@@ -18,9 +18,11 @@ public class CourseUpdateRequestDto {
     @Positive(message = ExceptionConstant.COURSE_ID_SHOULD_BE_NUMERIC_GREATER_THAN_ZERO)
     private int courseId;
 
+    @NotBlank(message = ExceptionConstant.COURSE_NAME_IS_MANDATORY)
     @Size(min = 20, message = ExceptionConstant.COURSE_NAME_SHOULD_BE_MINIMUM_20)
     private String courseName;
 
+    @NotBlank(message = ExceptionConstant.COURSE_DESCRIPTION_IS_MANDATORY)
     @Size(min = 100, message = ExceptionConstant.COURSE_DESCRIPTION_SHOULD_BE_MINIMUM_100)
     private String courseDescription;
 

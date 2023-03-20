@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/models/course';
 import { CourseService } from 'src/app/services/course-service/course.service';
@@ -12,26 +12,32 @@ import { CourseService } from 'src/app/services/course-service/course.service';
 export class AddCourseComponent implements OnInit {
 
   course: Course=new Course();
-  addCourseForm!: NgForm;
-  isSubmitted: boolean = false;
+  addCourseForm: FormGroup;
+  errMessage = ''
 
 
-  constructor(private courseService:CourseService,private router:Router) { }
+
+  constructor(private fb: FormBuilder,private courseService:CourseService,private router:Router) { }
 
   ngOnInit(): void {
+    this.addCourseForm = this.fb.group({
+      courseName:['',[Validators.required,Validators.minLength(20)]],
+      courseDescription:['',[Validators.required,Validators.minLength(100)]],
+      courseDuration:['',[Validators.required,Validators.min(1)]],
+      courseTechnology:['',[Validators.required]],
+      courseLaunchURL:['',[Validators.required]],
+    })
   }
 
-    addCourseDetails(isValid:any){
-      this.isSubmitted = true;
-
-      if(isValid){
+    addCourseDetails(){
         this.courseService.addCourse(this.course).subscribe(data=>{
           this.router.navigate(['/home']);
-        },error=>{
-          console.log(error);
+        },err=>{
+          console.log(err);
+          this.errMessage=err.error && err.error.message;
+
         })
-    
-      }
+
   }
 
 
