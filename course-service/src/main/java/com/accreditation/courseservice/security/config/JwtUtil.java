@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class JwtUtil {
+public class   JwtUtil {
 
     @Value("${jwt.secret}")
     private String secret;

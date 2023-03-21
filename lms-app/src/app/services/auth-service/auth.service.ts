@@ -39,6 +39,12 @@ export class AuthService {
     localStorage.removeItem('accessToken')
   }
 
+  logout=()=>{
+    this.deleteAccessToken();
+    this.isUserLoggedIn=false;
+    this.loginSuccess.emit(false);
+  }
+
   extractUserDetails(token : string){
 
     this.access_token=token; // we are setting token value in local storage

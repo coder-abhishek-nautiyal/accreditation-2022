@@ -6,13 +6,13 @@
 
     <form [formGroup]="updateCourseForm" (submit)="updateCourseDetails()">
 
-      <mat-form-field>
+      <!-- <mat-form-field>
         <input matInput type="number" placeholder="Enter Course Id" formControlName="courseId" [readonly]="true"  [(ngModel)]="course.courseId" required >
         <mat-error *ngIf="updateCourseForm.controls['courseId'].errors?.['required']">Course Id is required</mat-error>
         <mat-error *ngIf="updateCourseForm.controls['courseId'].errors?.['min']">
           Please enter positive number greater than 0
         </mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
 
       <mat-form-field>
         <input matInput type="text" placeholder="Enter Course Name" formControlName="courseName"  [(ngModel)]="course.courseName" required>
@@ -46,10 +46,11 @@
               </mat-form-field>
 
               <mat-form-field>
-                <input matInput type="text" placeholder="Enter Course Technology URL" formControlName="courseLaunchURL"  [(ngModel)]="course.courseLaunchURL" required>
-                <mat-error *ngIf="updateCourseForm.controls['courseLaunchURL'].errors?.['required']">Course Technology URL is required</mat-error>
+                <input matInput type="text" placeholder="Enter Course Launch URL" formControlName="courseLaunchURL"  [(ngModel)]="course.courseLaunchURL" required>
+                <mat-error *ngIf="updateCourseForm.controls['courseLaunchURL'].errors?.['required']">Course Launch URL is required</mat-error>
 
                 </mat-form-field>
+
 
       <div>
         <button mat-raised-button color="primary" type="submit" [disabled]="!updateCourseForm.valid">Update Course</button>

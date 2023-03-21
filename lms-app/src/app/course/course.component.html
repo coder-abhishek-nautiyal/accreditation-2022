@@ -7,11 +7,42 @@
   <mat-card-content >Welcome, {{username}}</mat-card-content>
 </mat-card>
 
+<mat-form-field *ngIf="isUserLoggedIn" class="search-course-tech">
+  <span matPrefix> </span>
+  <input type="text" matInput placeholder="Search by Course Technology" name= "searchCourseByTechnology" [(ngModel)]= "searchCourseByTechnology" required>
+  <button [disabled]="!searchCourseByTechnology" matSuffix mat-button (click)="searchCourseByCourseTechnology(searchCourseByTechnology)"><mat-icon >search</mat-icon></button>
+</mat-form-field>
+
+<mat-form-field *ngIf="isUserLoggedIn"  class="search-course-duration-from">
+  <span matPrefix> </span>
+  <input matInput type="number" placeholder="Enter Course Duration From" name= "courseDurationFrom" [(ngModel)]="courseDurationFrom"  required>
+</mat-form-field>
+
+<mat-form-field *ngIf="isUserLoggedIn"  class="search-course-duration-to">
+  <span matPrefix> </span>
+  <input matInput type="number" placeholder="Enter Course Duration To" name= "courseDurationTo" [(ngModel)]="courseDurationTo"  required>
+</mat-form-field>
+
+<div *ngIf="isUserLoggedIn" class="course-button-container">
+  <button [disabled]="isSearchBasedOnCourseDurationAllowed()" mat-raised-button (click)="searchCoursesByCourseTechnologyBasedOnDuration()" class="course-button">
+   Search Courses By Duration
+  </button>
+</div>
+
+<div *ngIf="isUserLoggedIn" class="course-button-container">
+  <button mat-raised-button (click)="viewCourseList()" class="course-button">
+    View All Courses
+  </button>
+</div>
+
 <div *ngIf="isUserLoggedIn && isAdminRole" class="course-button-container">
   <button mat-raised-button (click)="addCourse()" class="course-button">
     Add Course
   </button>
 </div>
+
+<div *ngIf="errMessage" class="get-course-submission-error">{{errMessage}}</div>
+
 
 <table *ngIf="isUserLoggedIn" mat-table [dataSource]="courses" class="mat-elevation-z8 course-table">
 
@@ -43,14 +74,15 @@
 
     <ng-container matColumnDef="courseLaunchURL">
       <th mat-header-cell *matHeaderCellDef>Course URL</th>
-      <td mat-cell *matCellDef="let element">{{element.courseLaunchURL}}</td>
+      <td mat-cell *matCellDef="let element"><a href="{{element.courseLaunchURL}}" target="_blank">{{element.courseLaunchURL}}</a></td>
     </ng-container>
 
     <ng-container matColumnDef="actions" *ngIf="isAdminRole">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
        
-        <a mat-button [routerLink]="['/update-course/', element.courseId]"><mat-icon matSuffix>edit</mat-icon></a>
+        <!-- <a mat-button  [routerLink]="['/update-course/', element.courseId]"><mat-icon matSuffix>edit</mat-icon></a> -->
+        <button mat-button  (click)="updateCouseData(element)"><mat-icon matSuffix>edit</mat-icon></button>
         <button  mat-button type="button" (click)="deleteCourseByCourseName(element.courseName)"><mat-icon matSuffix>delete</mat-icon></button>
 
       </td>

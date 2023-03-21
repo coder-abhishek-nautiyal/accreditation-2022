@@ -13,6 +13,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SpringSecurityConfiguration {
 
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
     private CustomJwtAuthenticationFilter customJwtAuthenticationFilter;
@@ -37,6 +39,7 @@ public class SpringSecurityConfiguration {
                 .antMatchers("/api/v/1.0/lms/courses/add", "/api/v/1.0/lms/courses/update", "/api/v/1.0/lms/courses/delete**").hasRole("ADMIN")
                 .antMatchers("/api/v/1.0/lms/courses/getall", "/api/v/1.0/lms/courses/info/**", "/api/v/1.0/lms/courses/get/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
+                .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(customJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

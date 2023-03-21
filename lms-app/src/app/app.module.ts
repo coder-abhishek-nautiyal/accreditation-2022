@@ -18,6 +18,8 @@ import { AuthInitializerProviderFactory } from './initializers/auth-initializer.
 import { AuthService } from './services/auth-service/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { LoaderComponent } from './loader/loader.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { MaterialModule } from './material/material.module';
     LoginComponent,
     RegisterComponent,
     AddCourseComponent,
-    UpdateCourseComponent
+    UpdateCourseComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { MaterialModule } from './material/material.module';
       useFactory: AuthInitializerProviderFactory,
       deps: [AuthService],
       multi: true
-    }
+    },
+    {provide:HTTP_INTERCEPTORS,useClass:LoadingInterceptor,multi:true}
   ],
   bootstrap: [AppComponent]
 })

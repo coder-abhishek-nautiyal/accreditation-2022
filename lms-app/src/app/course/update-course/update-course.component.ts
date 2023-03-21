@@ -13,7 +13,7 @@ export class UpdateCourseComponent implements OnInit {
 
   course: Course=new Course();
   updateCourseForm!: FormGroup;
-  errMessage = ''
+  errMessage = '' 
 
 
 
@@ -22,7 +22,7 @@ export class UpdateCourseComponent implements OnInit {
   ngOnInit(): void {
 
     this.updateCourseForm = this.fb.group({
-      courseId:['',[Validators.required,Validators.min(1)]],
+      // courseId:['',[Validators.required,Validators.min(1)]],
       courseName:['',[Validators.required,Validators.minLength(20)]],
       courseDescription:['',[Validators.required,Validators.minLength(100)]],
       courseDuration:['',[Validators.required,Validators.min(1)]],
@@ -30,11 +30,12 @@ export class UpdateCourseComponent implements OnInit {
       courseLaunchURL:['',[Validators.required]],
     }) 
 
-    /*Below logic to set course Id and make it disabled for user to not edit*/
-    this.activatedRoute.params.subscribe((params)=>{
-      this.course.courseId=params['courseId'];
-    })
+    this.populateCourseDetails();
 
+  }
+
+  populateCourseDetails(){
+    this.course=this.courseService.courseObjToUpdate;
   }
 
     updateCourseDetails(){
@@ -47,6 +48,8 @@ export class UpdateCourseComponent implements OnInit {
 
         })
   }
+
+
 
 
 

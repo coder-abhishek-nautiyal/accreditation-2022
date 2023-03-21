@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Course } from '../models/course';
@@ -23,7 +23,11 @@ export class CourseComponent implements OnInit {
   username: string;
   displayedColumns: string[] = ['courseId', 'courseName', 'courseDescription', 'courseDuration','courseTechnology','courseLaunchURL'];
   @ViewChild(MatTable) table: MatTable<Course>;
-
+  errMessage :string = '' 
+  panelOpenState : boolean = false;
+  searchCourseByTechnology : string = ''
+  courseDurationFrom: number;
+  courseDurationTo: number;
 
   constructor(private courseService:CourseService,private authService: AuthService,private router: Router) { }
 
@@ -39,6 +43,7 @@ export class CourseComponent implements OnInit {
 
   }
 
+
   updateDisplayedColumns(){
     this.displayedColumns.push("actions");
   }
@@ -46,8 +51,11 @@ export class CourseComponent implements OnInit {
   viewCourseList(){
     this.courseService.getAllCourses().subscribe(data=>{
       this.courses=data;
-    },error=>{
-      console.log(error);
+      this.errMessage='';
+    },err=>{
+      console.log(err);
+      this.errMessage=err.error && (err.error.response || err.error.message);
+
     })
   }
 
@@ -56,14 +64,52 @@ export class CourseComponent implements OnInit {
       let courseIndex=this.courses.findIndex(course=>course.courseName===courseName);
       this.courses.splice(courseIndex,1);
       this.table.renderRows();
-    },error=>{
-      console.log(error);
+      this.errMessage='';
+    },err=>{
+      console.log(err);
+      this.errMessage=err.error && (err.error.response || err.error.message);
     })
+  }
+
+  searchCourseByCourseTechnology(courseTechnology:string){
+    this.courseService.getCoursesByCourseTechnology(courseTechnology).subscribe(data=>{
+      this.courses=data;
+      this.table.renderRows();
+      this.errMessage='';
+    },err=>{
+      console.log(err);
+      this.errMessage=err.error && (err.error.response || err.error.message);
+    })
+  }
+
+
+  updateCouseData(course: Course){
+    this.courseService.setCourseObjToUpdate(course);
+    this.router.navigate(['/update-course/', course.courseId]);
   }
 
 
   addCourse() {
     this.router.navigate(['add-course']);
+  }
+
+  searchCoursesByCourseTechnologyBasedOnDuration(){
+    this.courseService.getCoursesByCourseTechnologyBasedOnDuration(this.searchCourseByTechnology,this.courseDurationFrom,this.courseDurationTo).subscribe(data=>{
+      this.courses=data;
+      this.table.renderRows();
+      this.errMessage='';
+    },err=>{
+      console.log(err);
+      this.errMessage=err.error && (err.error.response || err.error.message);
+    })
+  }
+
+  isSearchBasedOnCourseDurationAllowed(){
+    if(!this.searchCourseByTechnology || !this.courseDurationFrom || !this.courseDurationTo){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 

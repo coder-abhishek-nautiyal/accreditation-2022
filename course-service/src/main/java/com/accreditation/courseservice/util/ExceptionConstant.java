@@ -20,6 +20,10 @@ public class ExceptionConstant {
     public static final String EMAIL_ID_IS_NOT_VALID = "Enter valid email with @ and .com";
     public static final String PASSWORD_SHOULD_BE_ALPHANUMERIC = "Password should be alphanumeric";
     public static final String PASSWORD_MINIMUM_LENGTH_ERROR = "Password should be at least 8 characters";
+    public static final String SESSION_EXPIRED_LOGIN_AGAIN = "Session expired, Please login and try again";
+    public static final String TOKEN_MISSING_LOGIN_AGAIN = "Looks like Authentication Token missing, Please login and try again";
+
+
 
 
 
