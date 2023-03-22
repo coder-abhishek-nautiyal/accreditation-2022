@@ -63,7 +63,7 @@ export class CourseComponent implements OnInit {
     this.courseService.deleteCourseByCourseName(courseName).subscribe(data=>{
       let courseIndex=this.courses.findIndex(course=>course.courseName===courseName);
       this.courses.splice(courseIndex,1);
-      this.table.renderRows();
+      this.table && this.table.renderRows();
       this.errMessage='';
     },err=>{
       console.log(err);
@@ -74,7 +74,7 @@ export class CourseComponent implements OnInit {
   searchCourseByCourseTechnology(courseTechnology:string){
     this.courseService.getCoursesByCourseTechnology(courseTechnology).subscribe(data=>{
       this.courses=data;
-      this.table.renderRows();
+      this.table && this.table.renderRows();
       this.errMessage='';
     },err=>{
       console.log(err);
@@ -96,7 +96,7 @@ export class CourseComponent implements OnInit {
   searchCoursesByCourseTechnologyBasedOnDuration(){
     this.courseService.getCoursesByCourseTechnologyBasedOnDuration(this.searchCourseByTechnology,this.courseDurationFrom,this.courseDurationTo).subscribe(data=>{
       this.courses=data;
-      this.table.renderRows();
+      this.table && this.table.renderRows();
       this.errMessage='';
     },err=>{
       console.log(err);

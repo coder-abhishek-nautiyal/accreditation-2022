@@ -10,7 +10,7 @@ import { RestTemplateService } from '../rest-template.service';
 })
 export class RegisterService {
 
-  constructor(public restTemplate: RestTemplateService) { }
+  constructor(private restTemplate: RestTemplateService) { }
 
   registerUser(user : RegisterUser):Observable<RegisterUser>{
     return this.restTemplate.postForEntity(environment.baseUrl+apiEndpoints.REGISTER_USER,user)

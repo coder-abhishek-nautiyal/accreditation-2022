@@ -59,6 +59,12 @@ public class CourseCommandServiceImpl implements CourseCommandService {
     @Override
     public boolean updateCourse(Course course) {
 
+        Optional<Course> optionalExistingCourse = courseCommandRepository.findByCourseName(course.getCourseName());
+
+        if (optionalExistingCourse.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, ExceptionConstant.COURSE_NAME_ALREADY_PRESENT);
+        }
+
         Optional<Course> optionalCourse = courseCommandRepository.findById(course.getCourseId());
         if (optionalCourse.isPresent()) {
             courseCommandRepository.save(course);

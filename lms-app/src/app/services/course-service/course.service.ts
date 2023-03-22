@@ -15,7 +15,7 @@ export class CourseService {
   courseObjToUpdate = new Course();
 
 
-  constructor(public restTemplate: RestTemplateService) { }
+  constructor(private restTemplate: RestTemplateService) { }
 
   setCourseObjToUpdate(course:Course){
     this.courseObjToUpdate=course;

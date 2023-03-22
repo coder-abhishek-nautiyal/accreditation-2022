@@ -26,7 +26,7 @@ export class AddCourseComponent implements OnInit {
       courseDuration:['',[Validators.required,Validators.min(1)]],
       courseTechnology:['',[Validators.required]],
       courseLaunchURL:['',[Validators.required]],
-    })
+    }) 
   }
 
     addCourseDetails(){
@@ -37,7 +37,7 @@ export class AddCourseComponent implements OnInit {
           this.errMessage=err.error && err.error.message;
 
         })
-
+    
   }
 
 

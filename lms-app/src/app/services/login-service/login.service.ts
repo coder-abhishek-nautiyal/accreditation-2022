@@ -10,7 +10,7 @@ import { RestTemplateService } from '../rest-template.service';
 })
 export class LoginService {
 
-  constructor(public restTemplate: RestTemplateService) { }
+  constructor(private restTemplate: RestTemplateService) { }
 
   validateLogin(user : LoginUser):Observable<any>{
     return this.restTemplate.postForEntity(environment.baseUrl+apiEndpoints.VALIDATE_LOGIN,user)
