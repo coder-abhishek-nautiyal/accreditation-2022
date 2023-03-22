@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
@@ -28,6 +29,8 @@ public class UserLoginController {
         try {
             response = restTemplate.exchange(loginBaseUrl, HttpMethod.POST, getHeaders(userDto), new ParameterizedTypeReference<Map<String, String>>() {
             });
+        }catch(HttpServerErrorException.ServiceUnavailable e){
+            return new ResponseEntity<StringResponse>(new StringResponse("Service Unavailable"), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             return new ResponseEntity<StringResponse>(new StringResponse("Login was not successful , Please enter valid credentials"), HttpStatus.UNAUTHORIZED);
         }

@@ -40,7 +40,7 @@ describe('UpdateCourseComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call updateCourseDetails() with error', () => {
+  it('should call updateCourseDetails() with error message', () => {
     let response={error:{
       message:"Exception"
     }};
@@ -48,5 +48,16 @@ describe('UpdateCourseComponent', () => {
     component.updateCourseDetails();
     expect(component).toBeTruthy();
   });
+
+
+  it('should call updateCourseDetails() with error service unavailable', () => {
+    let response={error:{
+      error:"service unavailable"
+    }};
+    spyOn(courseService,'updateCourse').and.returnValue(throwError(response));
+    component.updateCourseDetails();
+    expect(component).toBeTruthy();
+  });
+
 
 });

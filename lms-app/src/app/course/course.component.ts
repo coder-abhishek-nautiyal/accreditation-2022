@@ -54,7 +54,7 @@ export class CourseComponent implements OnInit {
       this.errMessage='';
     },err=>{
       console.log(err);
-      this.errMessage=err.error && (err.error.response || err.error.message);
+      this.errMessage=err.error && (err.error.response || err.error.message || err.error.error);
 
     })
   }
@@ -67,7 +67,7 @@ export class CourseComponent implements OnInit {
       this.errMessage='';
     },err=>{
       console.log(err);
-      this.errMessage=err.error && (err.error.response || err.error.message);
+      this.errMessage=err.error && (err.error.response || err.error.message  || err.error.error);
     })
   }
 
@@ -78,7 +78,7 @@ export class CourseComponent implements OnInit {
       this.errMessage='';
     },err=>{
       console.log(err);
-      this.errMessage=err.error && (err.error.response || err.error.message);
+      this.errMessage=err.error && (err.error.response || err.error.message  || err.error.error);
     })
   }
 
@@ -95,12 +95,17 @@ export class CourseComponent implements OnInit {
 
   searchCoursesByCourseTechnologyBasedOnDuration(){
     this.courseService.getCoursesByCourseTechnologyBasedOnDuration(this.searchCourseByTechnology,this.courseDurationFrom,this.courseDurationTo).subscribe(data=>{
-      this.courses=data;
+      if(!data.length){
+        /*Since if string response or no data received it should be blank*/
+        this.courses=[];
+      }else{
+        this.courses=data;
+      }
       this.table && this.table.renderRows();
       this.errMessage='';
     },err=>{
       console.log(err);
-      this.errMessage=err.error && (err.error.response || err.error.message);
+      this.errMessage=err.error && (err.error.response || err.error.message  || err.error.error);
     })
   }
 

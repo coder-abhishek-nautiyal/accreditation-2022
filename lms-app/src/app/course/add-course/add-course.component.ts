@@ -34,7 +34,7 @@ export class AddCourseComponent implements OnInit {
           this.router.navigate(['/home']);
         },err=>{
           console.log(err);
-          this.errMessage=err.error && err.error.message;
+          this.errMessage=err.error && (err.error.message  || err.error.error);
 
         })
     

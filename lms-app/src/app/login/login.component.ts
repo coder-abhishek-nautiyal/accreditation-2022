@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
      this.authService.extractUserDetails(data.token);
       this.router.navigate(['/'])
     },err=>{
-      this.errMessage=err.error && err.error.response;
+      this.errMessage=err.error && (err.error.response || err.error.error);
     })
   }
 

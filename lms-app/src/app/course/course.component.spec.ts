@@ -75,8 +75,15 @@ describe('CourseComponent', () => {
   });
 
 
-  it('should call searchCoursesByCourseTechnologyBasedOnDuration() with success', () => {
+  it('should call searchCoursesByCourseTechnologyBasedOnDuration() with success data', () => {
     let response:Array<Course>=[{courseId:1,courseName:'Java',courseDescription:'course Desc',courseDuration:2,courseLaunchURL:'test',courseTechnology:'Java'}]
+    spyOn(courseService,'getCoursesByCourseTechnologyBasedOnDuration').and.returnValue(of(response));
+    component.searchCoursesByCourseTechnologyBasedOnDuration();
+    expect(component).toBeTruthy();
+  });
+
+  it('should call searchCoursesByCourseTechnologyBasedOnDuration() with no data', () => {
+    let response:Array<Course>=[]
     spyOn(courseService,'getCoursesByCourseTechnologyBasedOnDuration').and.returnValue(of(response));
     component.searchCoursesByCourseTechnologyBasedOnDuration();
     expect(component).toBeTruthy();
@@ -99,6 +106,16 @@ describe('CourseComponent', () => {
     component.searchCoursesByCourseTechnologyBasedOnDuration();
     expect(component).toBeTruthy();
   });
+
+  it('should call searchCoursesByCourseTechnologyBasedOnDuration() with error and error present', () => {
+    let response={error:{
+      error:"Exception"
+    }};
+    spyOn(courseService,'getCoursesByCourseTechnologyBasedOnDuration').and.returnValue(throwError(response));
+    component.searchCoursesByCourseTechnologyBasedOnDuration();
+    expect(component).toBeTruthy();
+  });
+
 
 
   it('should call ngOnInit() with AdminRole and Login Success', () => {
@@ -135,11 +152,29 @@ describe('CourseComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should call viewCourseList() with error and error present', () => {
+    let response={error:{
+      error:"Exception"
+    }};
+    spyOn(courseService,'getAllCourses').and.returnValue(throwError(response));
+    component.viewCourseList();
+    expect(component).toBeTruthy();
+  });
+
 
   it('should call deleteCourseByCourseName() with success', () => {
     component.courses.push({courseId:1,courseName:'Java',courseDescription:'course Desc',courseDuration:2,courseLaunchURL:'test',courseTechnology:'Java'});
     let response:Course={courseId:1,courseName:'Java',courseDescription:'course Desc',courseDuration:2,courseLaunchURL:'test',courseTechnology:'Java'};
     spyOn(courseService,'deleteCourseByCourseName').and.returnValue(of(response));
+    component.deleteCourseByCourseName('Java');
+    expect(component).toBeTruthy();
+  });
+
+  it('should call viewCourseList() with error and error present', () => {
+    let response={error:{
+      error:"Exception"
+    }};
+    spyOn(courseService,'deleteCourseByCourseName').and.returnValue(throwError(response));
     component.deleteCourseByCourseName('Java');
     expect(component).toBeTruthy();
   });
@@ -184,6 +219,15 @@ describe('CourseComponent', () => {
   it('should call searchCourseByCourseTechnology() with error and response present', () => {
     let response={error:{
       response:"Exception"
+    }};
+    spyOn(courseService,'getCoursesByCourseTechnology').and.returnValue(throwError(response));
+    component.searchCourseByCourseTechnology('Java');
+    expect(component).toBeTruthy();
+  });
+
+  it('should call searchCourseByCourseTechnology() with error and error present', () => {
+    let response={error:{
+      error:"Exception"
     }};
     spyOn(courseService,'getCoursesByCourseTechnology').and.returnValue(throwError(response));
     component.searchCourseByCourseTechnology('Java');

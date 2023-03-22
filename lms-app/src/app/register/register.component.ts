@@ -37,25 +37,10 @@ export class RegisterComponent implements OnInit {
     this.registerService.registerUser(new RegisterUser(formValue.username,formValue.email,formValue.password)).subscribe(data=> {
       this.isUserRegistrationSuccess = true
       this.errMessage='';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       this.userRegisterForm.reset('');
       this.ngForm.resetForm();
     },err =>{
-        this.errMessage= err.error && err.error.message;
+        this.errMessage= err.error && (err.error.message || err.error.error);
     })
   }
 

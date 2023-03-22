@@ -32,11 +32,19 @@ describe('RegisterComponent', () => {
   });
 
 
-  it('should call register() with error', () => {
+  it('should call register() with error and message response', () => {
     let response = {error:{message:"Registration failed."}}
     let spy=spyOn(registerService,'registerUser').and.returnValue(throwError(response));
     component.register();
     expect(spy).toHaveBeenCalled();
   });
+
+  it('should call register() with error and error response', () => {
+    let response = {error:{error:"Registration failed."}}
+    let spy=spyOn(registerService,'registerUser').and.returnValue(throwError(response));
+    component.register();
+    expect(spy).toHaveBeenCalled();
+  });
+
 
 });

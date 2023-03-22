@@ -39,9 +39,18 @@ describe('AddCourseComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call addCourseDetails() with error', () => {
+  it('should call addCourseDetails() with error message', () => {
     let response={error:{
       message:"Exception"
+    }};
+    spyOn(courseService,'addCourse').and.returnValue(throwError(response));
+    component.addCourseDetails();
+    expect(component).toBeTruthy();
+  });
+
+  it('should call addCourseDetails() with error service unavailable', () => {
+    let response={error:{
+      error:"service unavailable"
     }};
     spyOn(courseService,'addCourse').and.returnValue(throwError(response));
     component.addCourseDetails();
