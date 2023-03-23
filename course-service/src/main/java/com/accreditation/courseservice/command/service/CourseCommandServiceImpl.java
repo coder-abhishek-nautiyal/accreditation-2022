@@ -61,7 +61,8 @@ public class CourseCommandServiceImpl implements CourseCommandService {
 
         Optional<Course> optionalExistingCourse = courseCommandRepository.findByCourseName(course.getCourseName());
 
-        if (optionalExistingCourse.isPresent()) {
+        /*Below logic is added to check while updating course same course name is not added as other course*/
+        if (optionalExistingCourse.isPresent() && optionalExistingCourse.get().getCourseId()!=course.getCourseId()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, ExceptionConstant.COURSE_NAME_ALREADY_PRESENT);
         }
 

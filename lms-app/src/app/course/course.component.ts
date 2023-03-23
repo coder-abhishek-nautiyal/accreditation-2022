@@ -50,7 +50,12 @@ export class CourseComponent implements OnInit {
 
   viewCourseList(){
     this.courseService.getAllCourses().subscribe(data=>{
-      this.courses=data;
+      if(!data.length){
+        /*Since if string response or no data received it should be blank*/
+        this.courses=[];
+      }else{
+        this.courses=data;
+      }
       this.errMessage='';
     },err=>{
       console.log(err);

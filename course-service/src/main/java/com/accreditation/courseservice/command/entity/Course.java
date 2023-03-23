@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "abhishekn_course") // name added since aws mysql end point is shared change later
+@Table(name = "course")
 public class Course {
 
     @Id

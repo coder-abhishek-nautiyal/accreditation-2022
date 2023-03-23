@@ -2,6 +2,7 @@ package com.accreditation.courseservice.command.controller;
 
 import com.accreditation.courseservice.command.dto.StringResponse;
 import com.accreditation.courseservice.command.dto.UserDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.validation.Valid;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v/1.0/lms/courses")
 @CrossOrigin("*")
@@ -27,8 +29,14 @@ public class UserLoginController {
         ResponseEntity<Map<String, String>> response = null;
 
         try {
+            log.info("Calling User Service with loginBaseUrl as ?",loginBaseUrl);
+            log.info("Calling User Service with email as ?",userDto.getEmail());
             response = restTemplate.exchange(loginBaseUrl, HttpMethod.POST, getHeaders(userDto), new ParameterizedTypeReference<Map<String, String>>() {
             });
+
+            log.info("Response from User Service with token as ?",response);
+
+
         }catch(HttpServerErrorException.ServiceUnavailable e){
             return new ResponseEntity<StringResponse>(new StringResponse("Service Unavailable"), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
