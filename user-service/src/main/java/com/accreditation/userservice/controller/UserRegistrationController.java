@@ -8,6 +8,7 @@ import com.accreditation.userservice.entity.UserDetail;
 import com.accreditation.userservice.security.config.JwtUtil;
 import com.accreditation.userservice.service.UserService;
 import io.jsonwebtoken.impl.DefaultClaims;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v/1.0/lms/company")
 @CrossOrigin("*")
@@ -55,6 +57,7 @@ public class UserRegistrationController {
                 .build();
 
         if (userService.save(userDetail) != null) {
+            log.info("Inside save method of User Registration Controller and User Saved Successfully ");
             return new ResponseEntity<StringResponse>(new StringResponse("User is successfully registered !!"), HttpStatus.CREATED);
         }
 

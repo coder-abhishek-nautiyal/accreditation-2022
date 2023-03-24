@@ -38,8 +38,10 @@ public class UserLoginController {
 
 
         }catch(HttpServerErrorException.ServiceUnavailable e){
+            log.error("HttpServerErrorException.ServiceUnavailable received is "+e.getMessage());
             return new ResponseEntity<StringResponse>(new StringResponse("Service Unavailable"), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
+            log.error("Exception received is "+e.getMessage());
             return new ResponseEntity<StringResponse>(new StringResponse("Login was not successful , Please enter valid credentials"), HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<Map<String, String>>(response.getBody(), HttpStatus.OK);

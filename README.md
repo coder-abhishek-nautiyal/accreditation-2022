@@ -176,3 +176,8 @@ if elastic ip is allotted then simply start and stop EC2 instance ,
 Execute below command in 2nd EC2 instance - note IP below will be of 1st EC2 instance
 nohup java -jar -Dspring.cloud.config.uri=http://13.51.89.228:9997 -Deureka.client.serviceUrl.defaultZone=http://13.51.89.228:8761/eureka user-service-0.0.1-SNAPSHOT.jar &
 nohup java -jar -DloginBaseUrl=http://13.51.89.228:9999/api/v/1.0/lms/company/login -Dspring.cloud.config.uri=http://13.51.89.228:9997 -Deureka.client.serviceUrl.defaultZone=http://13.51.89.228:8761/eureka course-service-0.0.1-SNAPSHOT.jar &
+
+##########
+Single Swagger URL to access both micro-service based on defination is below -
+http://localhost:9999/swagger-ui/
+
