@@ -29,12 +29,12 @@ public class UserLoginController {
         ResponseEntity<Map<String, String>> response = null;
 
         try {
-            log.info("Calling User Service with loginBaseUrl as ?",loginBaseUrl);
-            log.info("Calling User Service with email as ?",userDto.getEmail());
+            log.info("Calling User Service with loginBaseUrl as "+loginBaseUrl);
+            log.info("Calling User Service with email as "+userDto.getEmail());
             response = restTemplate.exchange(loginBaseUrl, HttpMethod.POST, getHeaders(userDto), new ParameterizedTypeReference<Map<String, String>>() {
             });
 
-            log.info("Response from User Service with token as ?",response);
+            log.info("Response from User Service with token as "+response);
 
 
         }catch(HttpServerErrorException.ServiceUnavailable e){

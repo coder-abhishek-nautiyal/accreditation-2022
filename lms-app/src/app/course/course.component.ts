@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, ViewChild } from '@angular/core';
-import { MatTable } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Course } from '../models/course';
 import { AuthService } from '../services/auth-service/auth.service';
@@ -17,17 +18,20 @@ export class CourseComponent implements OnInit {
 
   course: Course=new Course();
   courses: Array<Course>=[];
+  dataSource: MatTableDataSource<Course>;
   courseData: any={};
   isUserLoggedIn: boolean=false;
   isAdminRole: boolean=false;
   username: string;
   displayedColumns: string[] = ['courseId', 'courseName', 'courseDescription', 'courseDuration','courseTechnology','courseLaunchURL'];
   @ViewChild(MatTable) table: MatTable<Course>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   errMessage :string = '' 
   panelOpenState : boolean = false;
   searchCourseByTechnology : string = ''
   courseDurationFrom: number;
   courseDurationTo: number;
+  resultsLength : number  = 0;
 
   constructor(private courseService:CourseService,private authService: AuthService,private router: Router) { }
 
@@ -39,7 +43,7 @@ export class CourseComponent implements OnInit {
     this.isAdminRole && this.updateDisplayedColumns();
     this.isUserLoggedIn && this.viewCourseList();
     this.isUserLoggedIn && this.authService.loginSuccess.emit(true);
-
+    this.dataSource = new MatTableDataSource(this.courses);
 
   }
 
@@ -53,9 +57,14 @@ export class CourseComponent implements OnInit {
       if(!data.length){
         /*Since if string response or no data received it should be blank*/
         this.courses=[];
+        this.resultsLength = 0;
+
       }else{
         this.courses=data;
+        this.resultsLength = data.length;
       }
+      this.dataSource.data=this.courses;
+      this.dataSource.paginator=this.paginator;
       this.errMessage='';
     },err=>{
       console.log(err);
@@ -68,6 +77,9 @@ export class CourseComponent implements OnInit {
     this.courseService.deleteCourseByCourseName(courseName).subscribe(data=>{
       let courseIndex=this.courses.findIndex(course=>course.courseName===courseName);
       this.courses.splice(courseIndex,1);
+      this.dataSource.data=this.courses;
+      this.dataSource.paginator=this.paginator;
+      this.resultsLength = this.courses.length;
       this.table && this.table.renderRows();
       this.errMessage='';
     },err=>{
@@ -79,6 +91,9 @@ export class CourseComponent implements OnInit {
   searchCourseByCourseTechnology(courseTechnology:string){
     this.courseService.getCoursesByCourseTechnology(courseTechnology).subscribe(data=>{
       this.courses=data;
+      this.dataSource.data=this.courses;
+      this.dataSource.paginator=this.paginator;
+      this.resultsLength = data.length;
       this.table && this.table.renderRows();
       this.errMessage='';
     },err=>{
@@ -103,9 +118,13 @@ export class CourseComponent implements OnInit {
       if(!data.length){
         /*Since if string response or no data received it should be blank*/
         this.courses=[];
+        this.resultsLength = 0;
       }else{
         this.courses=data;
+        this.resultsLength = data.length;
       }
+      this.dataSource.data=this.courses;
+      this.dataSource.paginator=this.paginator;
       this.table && this.table.renderRows();
       this.errMessage='';
     },err=>{

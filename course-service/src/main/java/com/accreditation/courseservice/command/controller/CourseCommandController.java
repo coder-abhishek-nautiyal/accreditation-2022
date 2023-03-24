@@ -28,11 +28,11 @@ public class CourseCommandController {
     public ResponseEntity<?> addCourse(@Valid @RequestBody CourseCreateRequestDto courseRequestDto) throws CourseServiceException {
 
         Course course = Course.builder()
-                .courseName(courseRequestDto.getCourseName())
-                .courseDescription(courseRequestDto.getCourseDescription())
+                .courseName(courseRequestDto.getCourseName().trim())
+                .courseDescription(courseRequestDto.getCourseDescription().trim())
                 .courseDuration(courseRequestDto.getCourseDuration())
-                .courseTechnology(courseRequestDto.getCourseTechnology())
-                .courseLaunchURL(courseRequestDto.getCourseLaunchURL())
+                .courseTechnology(courseRequestDto.getCourseTechnology().trim())
+                .courseLaunchURL(courseRequestDto.getCourseLaunchURL().trim())
                 .build();
 
         if (courseService.addCourse(course) != null) {
@@ -69,11 +69,11 @@ public class CourseCommandController {
 
         Course course = Course.builder()
                 .courseId(courseUpdateRequestDto.getCourseId())
-                .courseName(courseUpdateRequestDto.getCourseName())
-                .courseDescription(courseUpdateRequestDto.getCourseDescription())
+                .courseName(courseUpdateRequestDto.getCourseName().trim())
+                .courseDescription(courseUpdateRequestDto.getCourseDescription().trim())
                 .courseDuration(courseUpdateRequestDto.getCourseDuration())
-                .courseTechnology(courseUpdateRequestDto.getCourseTechnology())
-                .courseLaunchURL(courseUpdateRequestDto.getCourseLaunchURL())
+                .courseTechnology(courseUpdateRequestDto.getCourseTechnology().trim())
+                .courseLaunchURL(courseUpdateRequestDto.getCourseLaunchURL().trim())
                 .build();
 
         if (courseService.updateCourse(course)) {

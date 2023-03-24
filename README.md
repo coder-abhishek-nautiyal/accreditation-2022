@@ -166,3 +166,13 @@ kill -9 pidNumber
 to find PID based on specific port execute below command -
 fuser 9996/tcp -- this is to find pid 
 
+#############
+Note every time EC2 instance is stopped and started again - need to perform below things if elastic ip is not alloted
+1- Login to EC2 instance service 1 - start service registry , api gateway and config service 
+2 - Login to EC2 instance service 2 - start user service and course service - make sure new IP of EC2 instance 1 is entered
+3 - Change IP in environment.prod.ts in lms-app and upload in S3 .
+
+if elastic ip is allotted then simply start and stop EC2 instance , 
+Execute below command in 2nd EC2 instance - note IP below will be of 1st EC2 instance
+nohup java -jar -Dspring.cloud.config.uri=http://13.51.89.228:9997 -Deureka.client.serviceUrl.defaultZone=http://13.51.89.228:8761/eureka user-service-0.0.1-SNAPSHOT.jar &
+nohup java -jar -DloginBaseUrl=http://13.51.89.228:9999/api/v/1.0/lms/company/login -Dspring.cloud.config.uri=http://13.51.89.228:9997 -Deureka.client.serviceUrl.defaultZone=http://13.51.89.228:8761/eureka course-service-0.0.1-SNAPSHOT.jar &

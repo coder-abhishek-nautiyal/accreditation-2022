@@ -48,8 +48,8 @@ public class UserRegistrationController {
 
 
         UserDetail userDetail = UserDetail.builder()
-                .email(userDetailDto.getEmail())
-                .username(userDetailDto.getUsername())
+                .email(userDetailDto.getEmail().trim())
+                .username(userDetailDto.getUsername().trim())
                 .password(bcryptEncoder.encode(userDetailDto.getPassword()))
                 .role((userDetailDto.getRole() != null && !userDetailDto.getRole().isEmpty()) ? userDetailDto.getRole() : "ROLE_USER") /*If user role not specified consider ROLE_USER by default*/
                 .build();

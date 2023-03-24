@@ -44,7 +44,7 @@
 <div *ngIf="errMessage" class="get-course-submission-error">{{errMessage}}</div>
 
 
-<table *ngIf="isUserLoggedIn" mat-table [dataSource]="courses" class="mat-elevation-z8 course-table">
+<table *ngIf="isUserLoggedIn" mat-table [dataSource]="dataSource" class="mat-elevation-z8 course-table">
 
   <ng-container matColumnDef="courseId">
     <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -102,4 +102,6 @@
 
 
 </table>
+<mat-paginator [length]="resultsLength" [pageSize]="3"></mat-paginator>
+
 
