@@ -24,7 +24,7 @@ public class   JwtUtil {
 
     public boolean validateToken(String authToken) {
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
             throw new BadCredentialsException("INVALID_CREDENTIALS", ex);

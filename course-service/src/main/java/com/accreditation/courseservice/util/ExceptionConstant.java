@@ -1,5 +1,8 @@
 package com.accreditation.courseservice.util;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class ExceptionConstant {
 
     public static final String COURSE_NAME_ALREADY_PRESENT = "Course Name already present";
@@ -22,7 +25,7 @@ public class ExceptionConstant {
     public static final String PASSWORD_MINIMUM_LENGTH_ERROR = "Password should be at least 8 characters";
     public static final String SESSION_EXPIRED_LOGIN_AGAIN = "Session expired, Please login and try again";
     public static final String TOKEN_MISSING_LOGIN_AGAIN = "Looks like Authentication Token missing, Please login and try again";
-
+    public static final String EXCEPTION_MESSAGE_KEY= "message";
 
 
 

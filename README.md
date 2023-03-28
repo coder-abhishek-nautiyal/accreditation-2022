@@ -181,3 +181,48 @@ nohup java -jar -DloginBaseUrl=http://13.51.89.228:9999/api/v/1.0/lms/company/lo
 Single Swagger URL to access both micro-service based on defination is below -
 http://localhost:9999/swagger-ui/
 
+#################
+SonarQube Integration
+sonarqube requires java 11
+go to sonarQube and start bat file like below - 
+\sonarqube-9.6.1.59531\sonarqube-9.6.1.59531\bin\windows-x86-64>StartSonar.bat
+
+Below is the sonarQube URL - 
+http://localhost:9000/
+credentials vary - admin/test
+
+Add below in pom.xml inside plugin -
+<plugin>
+<groupId>org.sonarsource.scanner.maven</groupId>
+<artifactId>sonar-maven-plugin</artifactId>
+<version>3.8.0.2131</version>
+</plugin>
+<plugin>
+<groupId>org.jacoco</groupId>
+<artifactId>jacoco-maven-plugin</artifactId>
+<version>0.8.5</version>
+<executions>
+<execution>
+<id>prepare-agent</id>
+<goals>
+<goal>prepare-agent</goal>
+</goals>
+</execution>
+<execution>
+<id>report</id>
+<goals>
+<goal>report</goal>
+</goals>
+</execution>
+</executions>
+</plugin>
+
+Also while running application
+modify options -- add before launch task -- > click add new task -- run maven goals
+
+clean org.jacoco:jacoco-maven-plugin:prepare-agent install
+sonar:sonar -Dsonar.login=squ_f2d7fd1e6f6084102015ab550c855824f492347d
+
+Add above commands in maven goals - 
+Note - security token can be found from  open sonarqube -- my account - security 
+

@@ -5,6 +5,7 @@ import com.accreditation.userservice.dto.AuthenticationResponse;
 import com.accreditation.userservice.dto.StringResponse;
 import com.accreditation.userservice.dto.UserDetailDto;
 import com.accreditation.userservice.entity.UserDetail;
+import com.accreditation.userservice.exception.UserServiceException;
 import com.accreditation.userservice.security.config.JwtUtil;
 import com.accreditation.userservice.service.UserService;
 import io.jsonwebtoken.impl.DefaultClaims;
@@ -46,7 +47,7 @@ public class UserRegistrationController {
 
 
     @PostMapping(value = "/register")
-    public ResponseEntity<?> saveUser(@Valid @RequestBody UserDetailDto userDetailDto) {
+    public ResponseEntity<StringResponse> saveUser(@Valid @RequestBody UserDetailDto userDetailDto) {
 
 
         UserDetail userDetail = UserDetail.builder()
@@ -58,15 +59,15 @@ public class UserRegistrationController {
 
         if (userService.save(userDetail) != null) {
             log.info("Inside save method of User Registration Controller and User Saved Successfully ");
-            return new ResponseEntity<StringResponse>(new StringResponse("User is successfully registered !!"), HttpStatus.CREATED);
+            return new ResponseEntity<>(new StringResponse("User is successfully registered !!"), HttpStatus.CREATED);
         }
 
         return new ResponseEntity<>(HttpStatus.CONFLICT);
 
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> login(@Valid @RequestBody AuthenticationRequest authenticationRequest)
+    @PostMapping(value = "/login")
+    public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody AuthenticationRequest authenticationRequest)
             throws Exception {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -76,15 +77,15 @@ public class UserRegistrationController {
             return ResponseEntity.ok(new AuthenticationResponse(token));
 
         } catch (DisabledException e) {
-            throw new Exception("USER_DISABLED", e);
+            throw new UserServiceException("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
+            throw new UserServiceException("INVALID_CREDENTIALS", e);
         }
 
     }
 
     @GetMapping(value = "/refreshToken")
-    public ResponseEntity<?> refreshToken(HttpServletRequest request) {
+    public ResponseEntity<AuthenticationResponse> refreshToken(HttpServletRequest request) {
         // From the HttpRequest get the claims
         DefaultClaims claims = (io.jsonwebtoken.impl.DefaultClaims) request.getAttribute("claims");
 

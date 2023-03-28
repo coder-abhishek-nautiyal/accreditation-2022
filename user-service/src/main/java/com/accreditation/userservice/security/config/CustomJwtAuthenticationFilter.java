@@ -1,6 +1,7 @@
 package com.accreditation.userservice.security.config;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -40,7 +42,7 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             } else {
-                System.out.println("Cannot set the Security Context");
+                log.error("Cannot set the Security Context");
             }
         }catch(ExpiredJwtException ex)
         {

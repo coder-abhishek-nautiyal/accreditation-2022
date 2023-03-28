@@ -25,7 +25,7 @@ public class CourseQueryServiceImpl implements CourseQueryService {
         log.info("Inside getAllCourses method of Service Impl");
 
         List<Course> courseList = courseCommandRepository.findAll();
-        if (courseList != null && !courseList.isEmpty()) {
+        if (!courseList.isEmpty()) {
             return courseList;
         }
 

@@ -39,19 +39,19 @@ public class UserLoginController {
 
         }catch(HttpServerErrorException.ServiceUnavailable e){
             log.error("HttpServerErrorException.ServiceUnavailable received is "+e.getMessage());
-            return new ResponseEntity<StringResponse>(new StringResponse("Service Unavailable"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new StringResponse("Service Unavailable"), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception e) {
             log.error("Exception received is "+e.getMessage());
-            return new ResponseEntity<StringResponse>(new StringResponse("Login was not successful , Please enter valid credentials"), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new StringResponse("Login was not successful , Please enter valid credentials"), HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<Map<String, String>>(response.getBody(), HttpStatus.OK);
+        return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
     }
 
     private static HttpEntity<UserDto> getHeaders(UserDto userDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-        return new HttpEntity<UserDto>(userDto, headers);
+        return new HttpEntity<>(userDto, headers);
     }
 
 }

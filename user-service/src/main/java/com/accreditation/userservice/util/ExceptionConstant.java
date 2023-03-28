@@ -1,5 +1,8 @@
 package com.accreditation.userservice.util;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class ExceptionConstant {
 
     public static final String EMAIL_ID_ALREADY_EXIST = "Email id is already registered";

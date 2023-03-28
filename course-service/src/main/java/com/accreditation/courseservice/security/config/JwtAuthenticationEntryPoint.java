@@ -33,9 +33,9 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 
             if(exception instanceof ExpiredJwtException){
-                body = new ObjectMapper().writeValueAsBytes(Collections.singletonMap("message", ExceptionConstant.SESSION_EXPIRED_LOGIN_AGAIN));
+                body = new ObjectMapper().writeValueAsBytes(Collections.singletonMap(ExceptionConstant.EXCEPTION_MESSAGE_KEY, ExceptionConstant.SESSION_EXPIRED_LOGIN_AGAIN));
             }else{
-                body = new ObjectMapper().writeValueAsBytes(Collections.singletonMap("message", exception.toString()));
+                body = new ObjectMapper().writeValueAsBytes(Collections.singletonMap(ExceptionConstant.EXCEPTION_MESSAGE_KEY, exception.toString()));
 
             }
 
@@ -53,9 +53,9 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
             byte[] body=null;
 
             if(authException instanceof InsufficientAuthenticationException){
-                body = new ObjectMapper().writeValueAsBytes(Collections.singletonMap("message", ExceptionConstant.TOKEN_MISSING_LOGIN_AGAIN));
+                body = new ObjectMapper().writeValueAsBytes(Collections.singletonMap(ExceptionConstant.EXCEPTION_MESSAGE_KEY, ExceptionConstant.TOKEN_MISSING_LOGIN_AGAIN));
             }else{
-                body  = new ObjectMapper().writeValueAsBytes(Collections.singletonMap("message", message));
+                body  = new ObjectMapper().writeValueAsBytes(Collections.singletonMap(ExceptionConstant.EXCEPTION_MESSAGE_KEY, message));
 
             }
 

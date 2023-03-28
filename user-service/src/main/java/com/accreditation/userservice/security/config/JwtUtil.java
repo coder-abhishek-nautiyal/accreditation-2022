@@ -32,11 +32,14 @@ public class JwtUtil {
 
         Optional<UserDetail> userData = userRepository.findUserByUsername(user.getUsername());
 
-        claims.put("role", userData.get().getRole());
-        claims.put("email", userData.get().getEmail());
-        claims.put("username", userData.get().getUsername());
+        if (userData.isPresent()) {
+            claims.put("role", userData.get().getRole());
+            claims.put("email", userData.get().getEmail());
+            claims.put("username", userData.get().getUsername());
+        }
 
-        return doGenerateToken(claims, userData.get().getUsername());
+
+        return doGenerateToken(claims, userData.isPresent() ? userData.get().getUsername() : user.getUsername());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
@@ -56,7 +59,7 @@ public class JwtUtil {
 
     public boolean validateToken(String authToken) {
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
             throw new BadCredentialsException("INVALID_CREDENTIALS", ex);

@@ -25,7 +25,7 @@ public class CourseCommandController {
 
     @ApiOperation(value = "", authorizations = {@Authorization(value = "jwtToken")})
     @PostMapping("/add")
-    public ResponseEntity<?> addCourse(@Valid @RequestBody CourseCreateRequestDto courseRequestDto) throws CourseServiceException {
+    public ResponseEntity<CourseCreateRequestDto> addCourse(@Valid @RequestBody CourseCreateRequestDto courseRequestDto) throws CourseServiceException {
 
         Course course = Course.builder()
                 .courseName(courseRequestDto.getCourseName().trim())
@@ -36,7 +36,7 @@ public class CourseCommandController {
                 .build();
 
         if (courseService.addCourse(course) != null) {
-            return new ResponseEntity<CourseCreateRequestDto>(courseRequestDto, HttpStatus.CREATED);
+            return new ResponseEntity<>(courseRequestDto, HttpStatus.CREATED);
         }
 
         return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -45,25 +45,25 @@ public class CourseCommandController {
 
     @ApiOperation(value = "", authorizations = {@Authorization(value = "jwtToken")})
     @DeleteMapping(value = "/delete/{courseName}")
-    public ResponseEntity<?> deleteCourseByName(@PathVariable("courseName") String courseName) {
+    public ResponseEntity<StringResponse> deleteCourseByName(@PathVariable("courseName") String courseName) {
         if (courseService.deleteCourseByName(courseName)) {
-            return new ResponseEntity<StringResponse>(new StringResponse("Course deleted from table"), HttpStatus.OK);
+            return new ResponseEntity<>(new StringResponse("Course deleted from table"), HttpStatus.OK);
         }
-        return new ResponseEntity<StringResponse>(new StringResponse("Course is not deleted from table"), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new StringResponse("Course is not deleted from table"), HttpStatus.NOT_FOUND);
     }
 
     @ApiOperation(value = "", authorizations = {@Authorization(value = "jwtToken")})
     @DeleteMapping("/deleteByCourseId/{courseId}")
-    public ResponseEntity<?> deleteCourseById(@PathVariable("courseId") int courseId) {
+    public ResponseEntity<StringResponse> deleteCourseById(@PathVariable("courseId") int courseId) {
         if (courseService.deleteCourseById(courseId)) {
-            return new ResponseEntity<StringResponse>(new StringResponse("Course deleted from table"), HttpStatus.OK);
+            return new ResponseEntity<>(new StringResponse("Course deleted from table"), HttpStatus.OK);
         }
-        return new ResponseEntity<StringResponse>(new StringResponse("Course is not deleted from table"), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new StringResponse("Course is not deleted from table"), HttpStatus.NOT_FOUND);
     }
 
     @ApiOperation(value = "", authorizations = {@Authorization(value = "jwtToken")})
     @PutMapping("/update")
-    public ResponseEntity<?> updateCourse(@Valid @RequestBody CourseUpdateRequestDto courseUpdateRequestDto) {
+    public ResponseEntity<StringResponse> updateCourse(@Valid @RequestBody CourseUpdateRequestDto courseUpdateRequestDto) {
 
         //validate Course Parameter before saving to DB
 
@@ -77,10 +77,10 @@ public class CourseCommandController {
                 .build();
 
         if (courseService.updateCourse(course)) {
-            return new ResponseEntity<StringResponse>(new StringResponse("Course Record is updated in the table"), HttpStatus.OK);
+            return new ResponseEntity<>(new StringResponse("Course Record is updated in the table"), HttpStatus.OK);
         }
 
-        return new ResponseEntity<StringResponse>(new StringResponse("Course Record is not updated in the table"), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new StringResponse("Course Record is not updated in the table"), HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 

@@ -28,10 +28,10 @@ public class CourseQueryController {
         List<Course> courseList = courseQueryService.getAllCourses();
 
         if (courseList != null && !courseList.isEmpty()) {
-            return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
+            return new ResponseEntity<>(courseList, HttpStatus.OK);
         }
 
-        return new ResponseEntity<StringResponse>(new StringResponse("Course List is empty "), HttpStatus.OK);
+        return new ResponseEntity<>(new StringResponse("Course List is empty "), HttpStatus.OK);
 
     }
 
@@ -42,9 +42,9 @@ public class CourseQueryController {
         List<Course> courseList = courseQueryService.getCourseByTechnology(courseTechnology);
 
         if (courseList != null && !courseList.isEmpty()) {
-            return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
+            return new ResponseEntity<>(courseList, HttpStatus.OK);
         }
-        return new ResponseEntity<StringResponse>(new StringResponse(ExceptionConstant.COURSE_TECHNOLOGY_DOES_NOT_EXIST), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new StringResponse(ExceptionConstant.COURSE_TECHNOLOGY_DOES_NOT_EXIST), HttpStatus.NOT_FOUND);
     }
 
     @ApiOperation(value = "", authorizations = {@Authorization(value = "jwtToken")})
@@ -57,14 +57,14 @@ public class CourseQueryController {
             List<Course> courseList = courseQueryService.getCourseByTechnologyBetweenDurationSpecified(courseTechnology, courseDurationFrom, courseDurationTo);
 
             if (courseList != null && !courseList.isEmpty()) {
-                return new ResponseEntity<List<Course>>(courseList, HttpStatus.OK);
+                return new ResponseEntity<>(courseList, HttpStatus.OK);
             }
 
-            return new ResponseEntity<StringResponse>(new StringResponse("Course List is empty "), HttpStatus.OK);
+            return new ResponseEntity<>(new StringResponse("Course List is empty "), HttpStatus.OK);
 
         }
 
-        return new ResponseEntity<StringResponse>(new StringResponse(ExceptionConstant.COURSE_DURATION_FROM_SHOULD_BE_LESS_THAN_TO), HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>(new StringResponse(ExceptionConstant.COURSE_DURATION_FROM_SHOULD_BE_LESS_THAN_TO), HttpStatus.NOT_ACCEPTABLE);
     }
 
 }

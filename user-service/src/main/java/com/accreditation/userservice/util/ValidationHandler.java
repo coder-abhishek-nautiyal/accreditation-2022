@@ -21,12 +21,12 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request){
         Map<String,String> errors=new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error)->{
+        ex.getBindingResult().getAllErrors().forEach(error->{
             String fieldName = ((FieldError) error).getField();
             String message = error.getDefaultMessage();
             errors.put(fieldName,message);
         });
-        return new ResponseEntity<Object>(errors,HttpStatus.BAD_GATEWAY);
+        return new ResponseEntity<>(errors,HttpStatus.BAD_GATEWAY);
     }
 
 
@@ -39,7 +39,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
         if(ex.getCause() instanceof InvalidFormatException){
             String targetType=((InvalidFormatException) ex.getCause()).getTargetType().getSimpleName();
             String sourceType=((InvalidFormatException) ex.getCause()).getValue().getClass().getSimpleName();
-            ((InvalidFormatException) ex.getCause()).getPath().forEach((error)->{
+            ((InvalidFormatException) ex.getCause()).getPath().forEach(error->{
                 String fieldName = error.getFieldName();
                 String message=fieldName+" expected input type is "+targetType+" but entered value type is "+sourceType;
                 errors.put(fieldName,message);

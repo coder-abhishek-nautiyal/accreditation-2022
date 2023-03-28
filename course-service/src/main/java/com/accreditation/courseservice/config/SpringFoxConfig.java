@@ -22,7 +22,8 @@ public class SpringFoxConfig {
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .paths(PathSelectors.any())
-                .build().securitySchemes(Arrays.asList(apiKey()));
+                .build().securitySchemes(Arrays.asList(apiKey()))
+                .apiInfo(getApiInfo());
     }
 
     private ApiKey apiKey() {
