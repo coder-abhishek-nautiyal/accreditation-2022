@@ -17,9 +17,9 @@ public interface CourseCommandRepository extends JpaRepository<Course, Integer> 
 
     @Modifying
     @Query(value = "delete from Course where course_name = :courseName") // Need to use class name in query
-    public void deleteByCourseName(String courseName);
+    void deleteByCourseName(String courseName);
 
-    public Optional<Course> findByCourseName(String courseName);
+    Optional<Course> findByCourseName(String courseName);
 
     List<Course> findByCourseTechnology(String courseTechnology);
 

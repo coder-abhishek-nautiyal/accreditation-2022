@@ -229,5 +229,16 @@ Note - security token can be found from  open sonarqube -- my account - security
 
 The JaCoCo-Maven plugin is used to generate code coverage reports.
 
+Command to run docker compose
+docker-compose up -d
+
+Command to find PID based on Port and how to Kill
+C:\Users\abhin>netstat -aon | find "9092"
+TCP    127.0.0.1:9092         0.0.0.0:0              LISTENING       8284
+taskkill /F /PID 8284
+
+Steps to start zooker and kafka.
+C:\Abhishek\Softwares\apache-zookeeper-3.7.1-bin\bin>zkServer.cmd
+C:\Abhishek\Softwares\kafka_2.12-3.3.1\bin\windows>kafka-server-start.bat C:\Abhishek\Softwares\kafka_2.12-3.3.1\config\server.properties
 
 
