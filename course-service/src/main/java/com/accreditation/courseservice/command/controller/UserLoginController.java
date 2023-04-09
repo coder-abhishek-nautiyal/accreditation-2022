@@ -3,6 +3,7 @@ package com.accreditation.courseservice.command.controller;
 import com.accreditation.courseservice.command.dto.StringResponse;
 import com.accreditation.courseservice.command.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -22,10 +23,12 @@ public class UserLoginController {
     @Value("${loginBaseUrl}")
     private String loginBaseUrl;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@Valid @RequestBody UserDto userDto) {
 
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map<String, String>> response = null;
 
         try {

@@ -221,8 +221,13 @@ Also while running application
 modify options -- add before launch task -- > click add new task -- run maven goals
 
 clean org.jacoco:jacoco-maven-plugin:prepare-agent install
+
 sonar:sonar -Dsonar.login=squ_f2d7fd1e6f6084102015ab550c855824f492347d
 
 Add above commands in maven goals - 
 Note - security token can be found from  open sonarqube -- my account - security 
+
+The JaCoCo-Maven plugin is used to generate code coverage reports.
+
+
 

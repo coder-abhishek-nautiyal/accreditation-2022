@@ -80,7 +80,7 @@
     <ng-container matColumnDef="actions" *ngIf="isAdminRole">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
-       
+
         <!-- <a mat-button  [routerLink]="['/update-course/', element.courseId]"><mat-icon matSuffix>edit</mat-icon></a> -->
         <button mat-button  (click)="updateCouseData(element)"><mat-icon matSuffix>edit</mat-icon></button>
         <button  mat-button type="button" (click)="deleteCourseByCourseName(element.courseName)"><mat-icon matSuffix>delete</mat-icon></button>
@@ -102,6 +102,6 @@
 
 
 </table>
-<mat-paginator [length]="resultsLength" [pageSize]="3"></mat-paginator>
+<mat-paginator *ngIf="isUserLoggedIn" [length]="resultsLength" [pageSize]="3"></mat-paginator>
 
 
