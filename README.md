@@ -241,4 +241,32 @@ Steps to start zooker and kafka.
 C:\Abhishek\Softwares\apache-zookeeper-3.7.1-bin\bin>zkServer.cmd
 C:\Abhishek\Softwares\kafka_2.12-3.3.1\bin\windows>kafka-server-start.bat C:\Abhishek\Softwares\kafka_2.12-3.3.1\config\server.properties
 
+ELK - ElasticSearch LogStash Kibana
+
+Elasticsearch - search engine implementation in java 
+logstash - transmit logs or events 
+kibana - visualize , Query and Filter and Elasticsearch Data 
+
+https://www.elastic.co/downloads/elasticsearch
+https://www.elastic.co/downloads/logstash
+https://www.elastic.co/downloads/kibana
+
+logstash.bat -f logstash.conf 
+kibana.bat
+
+
+http://localhost:5601/?code=584484
+
+Below command to get elastic search token -- 
+C:\Users\abhin\Downloads\elasticsearch-8.7.0-windows-x86_64\elasticsearch-8.7.0\bin>elasticsearch-create-enrollment-token.bat --scope kibana
+
+C:\Users\abhin\Downloads\logstash-8.7.0\bin>logstash -f C:\Users\abhin\Downloads\logstash-8.7.0\bin\logstash.conf
+
+C:\Users\abhin\Downloads\elasticsearch-8.7.0-windows-x86_64\elasticsearch-8.7.0\bin>elasticsearch.bat
+
+C:\Users\abhin\Downloads\kibana-8.7.0-windows-x86_64\kibana-8.7.0\bin>kibana.bat
+
+C:\Users\abhin\Downloads\elasticsearch-8.7.0-windows-x86_64\elasticsearch-8.7.0\bin>elasticsearch-reset-password -u elastic
+
+
 
