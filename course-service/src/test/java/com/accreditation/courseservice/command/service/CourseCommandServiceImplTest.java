@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -24,6 +26,9 @@ class CourseCommandServiceImplTest {
     @Mock
     private CourseCommandRepository courseCommandRepository;
 
+    @Mock
+    private KafkaTemplate<Integer, String> kafkaTemplate;
+
 
     @BeforeEach
     public void init(){
@@ -33,6 +38,17 @@ class CourseCommandServiceImplTest {
 
     @Test
     void test_addCourse()  {
+
+        Course course= Course.builder().courseName("name").courseDescription("desc").courseLaunchURL("test").courseDuration(1).courseTechnology("tech").build();
+
+        Course response=courseCommandService.addCourse(course);
+        assertEquals("name",response.getCourseName());
+
+    }
+
+    @Test
+    void test_addCourse_isKafkaEnabled()  {
+        ReflectionTestUtils.setField(courseCommandService, "isKafkaEnabled", true);
 
         Course course= Course.builder().courseName("name").courseDescription("desc").courseLaunchURL("test").courseDuration(1).courseTechnology("tech").build();
 
@@ -65,6 +81,28 @@ class CourseCommandServiceImplTest {
     }
 
 
+    @Test
+    void test_deleteCourseByName_isKafkaEnabled()  {
+        ReflectionTestUtils.setField(courseCommandService, "isKafkaEnabled", true);
+
+        Course course= Course.builder().courseName("name").courseDescription("desc").courseLaunchURL("test").courseDuration(1).courseTechnology("tech").build();
+        when(courseCommandRepository.findByCourseName(any())).thenReturn(Optional.ofNullable(course));
+        boolean response=courseCommandService.deleteCourseByName("name");
+        assertTrue(response);
+
+    }
+
+    @Test
+    void test_deleteCourseByName_isKafkaEnabled_Exception()  {
+        ReflectionTestUtils.setField(courseCommandService, "isKafkaEnabled", true);
+
+        Course course= Course.builder().courseName("name").courseDescription("desc").courseLaunchURL("test").courseDuration(1).courseTechnology("tech").build();
+        when(courseCommandRepository.findByCourseName(any())).thenReturn(Optional.ofNullable(course));
+        when(kafkaTemplate.send(any(),any(),any())).thenThrow(RuntimeException.class);
+        boolean response=courseCommandService.deleteCourseByName("name");
+        assertTrue(response);
+
+    }
 
     @Test
     void test_deleteCourseByName_courseNotExist() {
@@ -78,6 +116,18 @@ class CourseCommandServiceImplTest {
 
     @Test
     void test_deleteCourseById()  {
+
+        Course course= Course.builder().courseId(1).courseName("name").courseDescription("desc").courseLaunchURL("test").courseDuration(1).courseTechnology("tech").build();
+        when(courseCommandRepository.findById(any())).thenReturn(Optional.ofNullable(course));
+        boolean response=courseCommandService.deleteCourseById(1);
+        assertTrue(response);
+
+    }
+
+
+    @Test
+    void test_deleteCourseById_isKafkaEnabled()  {
+        ReflectionTestUtils.setField(courseCommandService, "isKafkaEnabled", true);
 
         Course course= Course.builder().courseId(1).courseName("name").courseDescription("desc").courseLaunchURL("test").courseDuration(1).courseTechnology("tech").build();
         when(courseCommandRepository.findById(any())).thenReturn(Optional.ofNullable(course));
@@ -109,6 +159,16 @@ class CourseCommandServiceImplTest {
 
     }
 
+    @Test
+    void test_updateCourse_isKafkaEnabled()  {
+        ReflectionTestUtils.setField(courseCommandService, "isKafkaEnabled", true);
+
+        Course course= Course.builder().courseId(1).courseName("name").courseDescription("desc").courseLaunchURL("test").courseDuration(1).courseTechnology("tech").build();
+        when(courseCommandRepository.findById(any())).thenReturn(Optional.ofNullable(course));
+        boolean response=courseCommandService.updateCourse(course);
+        assertTrue(response);
+
+    }
 
 
     @Test
