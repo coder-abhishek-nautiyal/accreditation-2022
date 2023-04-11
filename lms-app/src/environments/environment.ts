@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   baseUrl:'http://localhost:9999'
+  //baseUrl:'http://api-gateway:9999'
+
 };
 
 /*

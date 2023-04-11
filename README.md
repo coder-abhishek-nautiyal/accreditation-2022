@@ -269,4 +269,26 @@ C:\Users\abhin\Downloads\kibana-8.7.0-windows-x86_64\kibana-8.7.0\bin>kibana.bat
 C:\Users\abhin\Downloads\elasticsearch-8.7.0-windows-x86_64\elasticsearch-8.7.0\bin>elasticsearch-reset-password -u elastic
 
 
+PS C:\Abhishek\Projects\Accrediation-2022\accrediation-2022\api-gateway> docker build -t api-gateway . 
+above command -t is tag and . means provide location where docker file exist 
+
+Build docker images without Dockerfile make use of library Jib 
+
+below command is to remove image 
+docker rmi imageName 
+
+docker login 
+
+docker tag latest
+
+PS C:\Abhishek\Projects\Accrediation-2022\accrediation-2022\api-gateway> docker tag api-gateway:latest abhisheknautiyal/api-gateway       
+PS C:\Abhishek\Projects\Accrediation-2022\accrediation-2022\api-gateway> docker push abhisheknautiyal/api-gateway
+docker pull abhisheknautiyal/api-gateway
+docker images
+docker rmi abhisheknautiyal/api-gateway 
+docker run --name api-gateway -p 9999:9999 abhisheknautiyal/api-gateway 
+docker-compose -f docker-compose.yml up
+
+
+
 
